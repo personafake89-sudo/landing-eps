@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -7,16 +8,15 @@ export default function Navbar() {
   return (
     <nav className="bg-[#0057a8] text-white shadow-md sticky top-0 z-50">
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="bg-white rounded-full p-2">
-            <svg className="w-7 h-7 text-[#0057a8]" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/>
-            </svg>
-          </div>
-          <div>
-            <span className="font-bold text-lg leading-none block">E.P.S. EMAQ S.A.</span>
-            <span className="text-blue-200 text-xs">Empresa Prestadora de Servicios</span>
-          </div>
+        <div className="flex items-center">
+          <Image
+            src="https://www.epsemaq.com.pe/uploads/1775668657025-spxpur.png"
+            alt="E.P.S. EMAQ S.A."
+            width={160}
+            height={48}
+            className="object-contain h-12 w-auto"
+            priority
+          />
         </div>
 
         <div className="hidden md:flex items-center gap-6 text-sm font-medium">
