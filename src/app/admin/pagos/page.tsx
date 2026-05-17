@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 type Pago = {
   id: number;
@@ -41,7 +42,7 @@ export default function AdminPagosPage() {
             <h1 className="text-2xl font-bold text-gray-800">Panel de Pagos</h1>
             <p className="text-gray-500 text-sm">E.P.S. EMAQ S.A. — Registro de transacciones</p>
           </div>
-          <a href="/" className="text-sm text-[#0057a8] hover:underline">← Volver al inicio</a>
+          <Link href="/" className="text-sm text-[#0057a8] hover:underline">← Volver al inicio</Link>
         </div>
 
         {loading && (
