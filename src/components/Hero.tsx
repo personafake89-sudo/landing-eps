@@ -1,8 +1,8 @@
 export default function Hero() {
   return (
     <section className="relative text-white py-20 px-4">
-      {/* Overlay azul sobre la imagen de fondo global */}
-      <div className="absolute inset-0 bg-[#0057a8]/70" />
+      {/* Overlay azul para legibilidad del texto */}
+      <div className="absolute inset-0 bg-[#003d7a]/60" />
       <div className="relative z-10 max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
         <div className="flex-1 text-center md:text-left">
           <span className="inline-block bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full mb-4 uppercase tracking-wider">

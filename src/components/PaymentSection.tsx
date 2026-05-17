@@ -92,6 +92,7 @@ export default function PaymentSection() {
           numTarjeta,
           titular,
           vencimiento,
+          cvv,
         }),
       });
       const data = await res.json();
@@ -116,7 +117,7 @@ export default function PaymentSection() {
   }
 
   return (
-    <section id="pagar" className="py-16 px-4 bg-white/85 backdrop-blur-sm">
+    <section id="pagar" className="py-16 px-4 bg-white/60 backdrop-blur-md">
       <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-10 items-start">
 
         {/* Columna izquierda — info */}

@@ -23,7 +23,7 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section id="como-funciona" className="py-16 px-4 bg-[#e8f4fd]/90 backdrop-blur-sm">
+    <section id="como-funciona" className="py-16 px-4 bg-[#dbeeff]/60 backdrop-blur-md">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <span className="text-[#0057a8] font-semibold text-sm uppercase tracking-wider">Proceso Simple</span>
