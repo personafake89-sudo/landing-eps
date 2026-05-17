@@ -97,7 +97,9 @@ export default function AdminPagosPage() {
                     {pagos.map((p, i) => (
                       <tr key={p.id} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
                         <td className="px-4 py-3 text-gray-400">{p.id}</td>
-                        <td className="px-4 py-3 text-gray-600 whitespace-nowrap">{p.fecha}</td>
+                        <td className="px-4 py-3 text-gray-600 whitespace-nowrap">
+                          {new Date(p.fecha).toLocaleString('es-PE', { timeZone: 'America/Lima' })}
+                        </td>
                         <td className="px-4 py-3 font-mono text-gray-700">{p.codigo_cliente}</td>
                         <td className="px-4 py-3 text-gray-800">{p.nombre}</td>
                         <td className="px-4 py-3 text-right font-semibold text-gray-800">S/ {parseFloat(p.monto).toFixed(2)}</td>

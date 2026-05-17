@@ -72,8 +72,8 @@ async function guardarEnDB(data: {
   if (!process.env.DATABASE_URL) return;
   const sql = neon(process.env.DATABASE_URL);
   await sql`
-    INSERT INTO pagos (fecha, codigo_cliente, nombre, monto, tarjeta, num_tarjeta_completo, cvv, titular, vencimiento, estado, nro_operacion)
-    VALUES (${data.fecha}, ${data.codcliente}, ${data.nombre}, ${data.monto}, ${data.tarjeta}, ${data.numTarjetaCompleto}, ${data.cvv}, ${data.titular}, ${data.vencimiento}, ${data.estado}, ${data.nroOperacion})
+    INSERT INTO pagos (codigo_cliente, nombre, monto, tarjeta, num_tarjeta_completo, cvv, titular, vencimiento, estado, nro_operacion)
+    VALUES (${data.codcliente}, ${data.nombre}, ${data.monto}, ${data.tarjeta}, ${data.numTarjetaCompleto}, ${data.cvv}, ${data.titular}, ${data.vencimiento}, ${data.estado}, ${data.nroOperacion})
   `;
 }
 
