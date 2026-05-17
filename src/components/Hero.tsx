@@ -1,7 +1,17 @@
 export default function Hero() {
   return (
-    <section className="bg-gradient-to-br from-[#0069c8] via-[#0090e0] to-[#00b4f0] text-white py-20 px-4">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
+    <section
+      className="relative text-white py-20 px-4"
+      style={{
+        backgroundImage: 'url(https://www.epsemaq.com.pe/slides/01K75Q8M98A0SXJ5YRW8FA6N2S.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
+      {/* Overlay azul semitransparente para legibilidad del texto */}
+      <div className="absolute inset-0 bg-[#0057a8]/75" />
+      <div className="relative z-10 max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
         <div className="flex-1 text-center md:text-left">
           <span className="inline-block bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full mb-4 uppercase tracking-wider">
             Servicios en Línea
@@ -66,7 +76,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+      <div className="relative z-10 max-w-6xl mx-auto mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
         {[
           { num: "+15,000", label: "Usuarios registrados" },
           { num: "100%", label: "Pagos seguros" },
