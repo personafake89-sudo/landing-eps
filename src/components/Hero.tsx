@@ -1,6 +1,6 @@
 export default function Hero() {
   return (
-    <section className="bg-gradient-to-br from-[#0057a8] via-[#0080d4] to-[#00a8e8] text-white py-20 px-4">
+    <section className="bg-gradient-to-br from-[#0069c8] via-[#0090e0] to-[#00b4f0] text-white py-20 px-4">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
         <div className="flex-1 text-center md:text-left">
           <span className="inline-block bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full mb-4 uppercase tracking-wider">

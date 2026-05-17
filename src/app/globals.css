@@ -1,8 +1,13 @@
 @import "tailwindcss";
 
+/* Forzar siempre modo claro */
 :root {
-  --background: #ffffff;
-  --foreground: #1a1a2e;
+  color-scheme: light;
+  --background: #f5f8ff;
+  --foreground: #1e293b;
+  --blue-primary: #0057a8;
+  --blue-light: #e8f4fd;
+  --green-accent: #00a651;
 }
 
 html {
@@ -13,4 +18,13 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+}
+
+/* Evitar que Tailwind aplique dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: light;
+    background: #f5f8ff;
+    color: #1e293b;
+  }
 }
