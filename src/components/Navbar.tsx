@@ -1,12 +1,21 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   return (
-    <nav className="bg-black/30 backdrop-blur-sm text-white sticky top-0 z-50">
+    <nav className={`sticky top-0 z-50 transition-colors duration-300 ${
+      scrolled ? 'bg-white/80 backdrop-blur-sm shadow-md text-gray-800' : 'bg-transparent text-white'
+    }`}>
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
         <div className="flex items-center">
           <Image
@@ -14,14 +23,14 @@ export default function Navbar() {
             alt="E.P.S. EMAQ S.A."
             width={160}
             height={48}
-            className="object-contain h-12 w-auto brightness-0 invert"
+            className={`object-contain h-12 w-auto transition-all duration-300 ${scrolled ? '' : 'brightness-0 invert'}`}
             priority
           />
         </div>
 
         <div className="hidden md:flex items-center gap-6 text-sm font-medium">
-          <a href="#servicios" className="hover:text-blue-200 transition-colors drop-shadow">Servicios</a>
-          <a href="#como-funciona" className="hover:text-blue-200 transition-colors drop-shadow">¿Cómo funciona?</a>
+          <a href="#servicios" className={`transition-colors ${scrolled ? 'hover:text-[#0057a8]' : 'hover:text-blue-200 drop-shadow'}`}>Servicios</a>
+          <a href="#como-funciona" className={`transition-colors ${scrolled ? 'hover:text-[#0057a8]' : 'hover:text-blue-200 drop-shadow'}`}>¿Cómo funciona?</a>
           <a href="#pagar" className="bg-[#00a651] hover:bg-[#008f45] text-white px-4 py-2 rounded-full transition-colors font-semibold">
             Pagar Recibo
           </a>
@@ -35,9 +44,9 @@ export default function Navbar() {
       </div>
 
       {open && (
-        <div className="md:hidden bg-black/50 px-4 pb-4 flex flex-col gap-3 text-sm font-medium">
-          <a href="#servicios" onClick={() => setOpen(false)} className="hover:text-blue-200 py-2">Servicios</a>
-          <a href="#como-funciona" onClick={() => setOpen(false)} className="hover:text-blue-200 py-2">¿Cómo funciona?</a>
+        <div className={`md:hidden px-4 pb-4 flex flex-col gap-3 text-sm font-medium ${scrolled ? 'bg-white/90' : 'bg-black/40'}`}>
+          <a href="#servicios" onClick={() => setOpen(false)} className="py-2">Servicios</a>
+          <a href="#como-funciona" onClick={() => setOpen(false)} className="py-2">¿Cómo funciona?</a>
           <a href="#pagar" onClick={() => setOpen(false)} className="bg-[#00a651] text-white px-4 py-2 rounded-full text-center">
             Pagar Recibo
           </a>
