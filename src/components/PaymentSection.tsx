@@ -116,7 +116,7 @@ export default function PaymentSection() {
   }
 
   return (
-    <section id="pagar" className="py-16 px-4 bg-gradient-to-br from-[#e8f4fd] to-[#f0f9ff]">
+    <section id="pagar" className="py-16 px-4 bg-white/85 backdrop-blur-sm">
       <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-10 items-start">
 
         {/* Columna izquierda — info */}
