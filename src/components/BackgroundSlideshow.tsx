@@ -10,7 +10,6 @@ const SLIDES = [
 
 export default function BackgroundSlideshow({ children }: { children: React.ReactNode }) {
   const [current, setCurrent] = useState(0);
-  const [next, setNext] = useState(1);
   const [fading, setFading] = useState(false);
 
   useEffect(() => {
@@ -18,37 +17,43 @@ export default function BackgroundSlideshow({ children }: { children: React.Reac
       setFading(true);
       setTimeout(() => {
         setCurrent(c => (c + 1) % SLIDES.length);
-        setNext(c => (c + 1) % SLIDES.length);
         setFading(false);
       }, 1000);
     }, 5000);
     return () => clearInterval(interval);
   }, []);
 
+  const next = (current + 1) % SLIDES.length;
+
   return (
     <div className="relative min-h-screen">
-      {/* Imagen actual */}
+      {/* Imagen siguiente (siempre visible detrás) */}
       <div
-        className="fixed inset-0 -z-10 transition-opacity duration-1000"
+        className="fixed inset-0"
+        style={{
+          backgroundImage: `url(${SLIDES[next]})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center top',
+          backgroundRepeat: 'no-repeat',
+          zIndex: 1,
+        }}
+      />
+      {/* Imagen actual (encima, hace fade out al cambiar) */}
+      <div
+        className="fixed inset-0 transition-opacity duration-1000"
         style={{
           backgroundImage: `url(${SLIDES[current]})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center top',
           backgroundRepeat: 'no-repeat',
           opacity: fading ? 0 : 1,
+          zIndex: 2,
         }}
       />
-      {/* Imagen siguiente (pre-cargada detrás) */}
-      <div
-        className="fixed inset-0 -z-20"
-        style={{
-          backgroundImage: `url(${SLIDES[next]})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center top',
-          backgroundRepeat: 'no-repeat',
-        }}
-      />
-      {children}
+      {/* Contenido por encima de todo */}
+      <div className="relative" style={{ zIndex: 3 }}>
+        {children}
+      </div>
     </div>
   );
 }

@@ -13,7 +13,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className="h-full antialiased" style={{ colorScheme: 'light' }}>
-      <body className="min-h-full flex flex-col bg-[#f5f8ff] text-[#1e293b]">{children}</body>
+      <body className="min-h-full flex flex-col text-[#1e293b]">{children}</body>
     </html>
   );
 }
