@@ -1,7 +1,6 @@
 export default function Hero() {
   return (
     <section className="relative text-white py-24 px-4">
-      <div className="absolute inset-0 bg-[#003d7a]/60" />
       <div className="relative z-10 max-w-4xl mx-auto text-center">
         <span className="inline-block bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full mb-4 uppercase tracking-wider">
           Servicios en Línea
