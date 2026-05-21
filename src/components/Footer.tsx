@@ -51,7 +51,7 @@ export default function Footer() {
             <img
               src="https://epsemaq.com.pe/uploads/1775604684441-4564us.png"
               alt="Ícono atención"
-              className="h-12 w-12 object-contain"
+              className="h-20 w-20 object-contain"
             />
             <h4 className="font-bold text-white">Horario de Atención</h4>
           </div>
