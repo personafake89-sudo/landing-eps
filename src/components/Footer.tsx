@@ -8,7 +8,7 @@ export default function Footer() {
         <div>
           <div className="mb-4">
             <Image
-              src="https://www.epsemaq.com.pe/uploads/1775668657025-spxpur.png"
+              src=""
               alt="EPS EMAQ S.A."
               width={140}
               height={42}
