@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 export default function Footer() {
   return (
     <footer className="relative text-white overflow-hidden">
@@ -9,15 +7,7 @@ export default function Footer() {
 
         {/* Col 1: Info */}
         <div>
-          <div className="mb-3">
-            <Image
-              src="https://www.epsemaq.com.pe/uploads/1775668657025-spxpur.png"
-              alt="EPS EMAQ S.A."
-              width={140}
-              height={42}
-              className="object-contain brightness-0 invert h-10 w-auto"
-            />
-          </div>
+          <p className="text-white font-bold text-lg tracking-widest mb-3">EPS EMAQ S.A.</p>
           <p className="text-blue-100 text-sm leading-relaxed mb-3">
             Comprometidos en alcanzar la excelencia en el servicio.
           </p>
