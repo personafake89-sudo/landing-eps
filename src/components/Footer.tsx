@@ -49,7 +49,7 @@ export default function Footer() {
         <div>
           <div className="flex items-center gap-3 mb-4">
             <img
-              src="https://epsemaq.com.pe/uploads/1775604684441-4564us.png"
+              src=""
               alt="Ícono atención"
               className="h-12 w-12 object-contain"
             />
