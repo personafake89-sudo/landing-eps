@@ -46,9 +46,9 @@ export default function Services() {
     <section id="servicios" className="py-16 px-4 bg-white/70">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <span className="text-[#0057a8] font-semibold text-sm uppercase tracking-wider">Nuestros Servicios</span>
-          <h2 className="text-3xl font-bold text-gray-800 mt-2">Todo lo que necesitas en un solo lugar</h2>
-          <p className="text-gray-500 mt-3 max-w-xl mx-auto">Gestione su servicio de agua potable de forma rápida y sin complicaciones desde nuestra plataforma digital.</p>
+          <span className="text-[#0057a8] font-semibold text-sm uppercase tracking-wider">Servicio de Saneamiento de Agua Potable en Quillabamba</span>
+          <h2 className="text-3xl font-bold text-gray-800 mt-2">Paga tu Recibo Digital sin salir de casa</h2>
+          <p className="text-gray-500 mt-3 max-w-xl mx-auto">Solo necesitas tu numero de suministro.</p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

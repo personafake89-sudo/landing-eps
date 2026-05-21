@@ -28,7 +28,7 @@ export default function HowItWorks() {
         <div className="text-center mb-12">
           <span className="text-[#0057a8] font-semibold text-sm uppercase tracking-wider">Proceso Simple</span>
           <h2 className="text-3xl font-bold text-gray-800 mt-2">¿Cómo pago mi recibo?</h2>
-          <p className="text-gray-500 mt-3">En 4 simples pasos, listo en menos de un minuto.</p>
+          <p className="text-gray-500 mt-3">Simple y Seguro.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 relative">
