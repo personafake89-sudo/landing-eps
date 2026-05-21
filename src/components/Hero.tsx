@@ -8,10 +8,6 @@ export default function Hero() {
       />
 
       <div className="relative z-10 max-w-4xl mx-auto text-center">
-        <span className="inline-block bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full mb-4 uppercase tracking-wider"
-          style={{ textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>
-          Servicios en Línea
-        </span>
         <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4"
           style={{ textShadow: '0 2px 12px rgba(0,0,0,0.7)' }}>
           ¡Bienvenido! Pague su <span className="text-[#7dd3fc]">recibo de agua</span> desde casa
@@ -44,19 +40,6 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-        {[
-          { num: "+15,000", label: "Usuarios registrados" },
-          { num: "100%", label: "Pagos seguros" },
-          { num: "24/7", label: "Disponibilidad" },
-          { num: "<1 min", label: "Tiempo de pago" },
-        ].map((stat) => (
-          <div key={stat.label} className="bg-white/10 rounded-xl py-4 px-3">
-            <p className="text-2xl font-bold" style={{ textShadow: '0 1px 6px rgba(0,0,0,0.6)' }}>{stat.num}</p>
-            <p className="text-blue-200 text-sm" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>{stat.label}</p>
-          </div>
-        ))}
-      </div>
     </section>
   );
 }

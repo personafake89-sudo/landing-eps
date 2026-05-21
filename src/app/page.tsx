@@ -11,9 +11,9 @@ export default function Home() {
     <BackgroundSlideshow>
       <Navbar />
       <Hero />
-      <Services />
       <HowItWorks />
       <PaymentSection />
+      <Services />
       <Footer />
     </BackgroundSlideshow>
   );

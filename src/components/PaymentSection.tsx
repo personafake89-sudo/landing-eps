@@ -117,14 +117,19 @@ export default function PaymentSection() {
   }
 
   return (
-    <section id="pagar" className="py-16 px-4 bg-white/70">
-      <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-10 items-start">
+    <section id="pagar" className="relative py-16 px-4">
+      {/* Viñeta sobre el fondo del slideshow */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse at center, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.62) 100%), linear-gradient(to bottom, transparent 70%, rgba(0,0,0,0.55) 100%)' }}
+      />
+      <div className="relative z-10 max-w-6xl mx-auto flex flex-col lg:flex-row gap-10 items-start">
 
         {/* Columna izquierda — info */}
         <div className="flex-1">
-          <span className="text-[#0057a8] font-semibold text-sm uppercase tracking-wider">Pago en Línea</span>
-          <h2 className="text-3xl font-bold text-gray-800 mt-2 mb-4">Consulte y pague su recibo</h2>
-          <p className="text-gray-600 mb-6 leading-relaxed">
+          <span className="text-blue-200 font-semibold text-sm uppercase tracking-wider">Pago en Línea</span>
+          <h2 className="text-3xl font-bold text-white mt-2 mb-4" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.6)' }}>Consulte y pague su recibo</h2>
+          <p className="text-blue-100 mb-6 leading-relaxed" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>
             Ingrese su código de cliente para ver su saldo actual y pagar de forma rápida y segura con su tarjeta de débito o crédito.
           </p>
           <div className="space-y-3 mb-6">
@@ -135,29 +140,16 @@ export default function PaymentSection() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <span className="text-gray-700 text-sm">{t}</span>
+                <span className="text-white/90 text-sm" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.5)' }}>{t}</span>
               </div>
             ))}
           </div>
-          <div className="flex gap-3 flex-wrap">
-            <div className="bg-white rounded-lg px-3 py-2 shadow-sm border flex items-center gap-2">
-              <div className="w-9 h-5 bg-[#1a1f71] rounded flex items-center justify-center">
-                <span className="text-white text-[9px] font-bold tracking-tight">VISA</span>
-              </div>
-              <span className="text-xs text-gray-500">Visa</span>
+          <div className="flex gap-2 flex-wrap items-center">
+            <div className="bg-white rounded-lg px-3 py-2 shadow-sm border">
+              <img src="https://static-content.vnforapps.com/v2/img/bottom/visa.png" alt="Visa" className="h-5 object-contain" />
             </div>
-            <div className="bg-white rounded-lg px-3 py-2 shadow-sm border flex items-center gap-2">
-              <div className="flex -space-x-1">
-                <div className="w-4 h-4 bg-red-500 rounded-full" />
-                <div className="w-4 h-4 bg-yellow-400 rounded-full" />
-              </div>
-              <span className="text-xs text-gray-500">Mastercard</span>
-            </div>
-            <div className="bg-white rounded-lg px-3 py-2 shadow-sm border flex items-center gap-2">
-              <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-              </svg>
-              <span className="text-xs text-gray-500">SSL Seguro</span>
+            <div className="bg-white rounded-lg px-3 py-2 shadow-sm border">
+              <img src="https://static-content.vnforapps.com/v2/img/bottom/mc.png" alt="Mastercard" className="h-5 object-contain" />
             </div>
           </div>
         </div>
@@ -236,7 +228,10 @@ export default function PaymentSection() {
                   </div>
                 </div>
                 {cliente.tiene_deuda && (
-                  <p className="text-red-100 text-sm mt-1">{cliente.meses_pendientes} mes(es) pendiente(s)</p>
+                  <div className="mt-1 flex flex-col gap-0.5">
+                    <p className="text-red-100 text-sm">{cliente.meses_pendientes} mes(es) pendiente(s)</p>
+                    <p className="text-yellow-200 text-xs font-bold uppercase tracking-wide">⚠ Afecto al corte</p>
+                  </div>
                 )}
               </div>
 
@@ -263,6 +258,10 @@ export default function PaymentSection() {
                       <span className="font-medium text-gray-800 text-right max-w-[60%]">{cliente.direccion}</span>
                     </div>
                   )}
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-500">Último día de pago:</span>
+                    <span className="font-medium text-gray-800">{new Date().toLocaleDateString('es-PE', { day: '2-digit', month: '2-digit', year: 'numeric' })}</span>
+                  </div>
                 </div>
 
                 {/* Detalle de meses pendientes */}
@@ -401,6 +400,16 @@ export default function PaymentSection() {
                   </div>
                 </div>
 
+                {/* Logos de seguridad */}
+                <div className="flex items-center justify-center gap-2 flex-wrap">
+                  <img src="https://static-content.vnforapps.com/v2/img/pci.png" alt="PCI DSS" className="h-5 object-contain" />
+                  <img src="https://static-content.vnforapps.com/v2/img/bottom/visa.png" alt="Visa" className="h-5 object-contain" />
+                  <img src="https://static-content.vnforapps.com/v2/img/bottom/mc.png" alt="Mastercard" className="h-5 object-contain" />
+                  <img src="https://static-content.vnforapps.com/v2/img/bottom/dc.png" alt="Diners Club" className="h-5 object-contain" />
+                  <img src="https://static-content.vnforapps.com/v2/img/bottom/amex.svg" alt="American Express" className="h-5 object-contain" />
+                  <img src="https://static-content.vnforapps.com/v2/img/bottom/unionpay.svg" alt="UnionPay" className="h-5 object-contain" />
+                </div>
+
                 {cardError && (
                   <div className="bg-red-50 border border-red-200 text-red-700 text-xs px-3 py-2 rounded-lg">
                     {cardError}
@@ -412,6 +421,11 @@ export default function PaymentSection() {
                     <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd"/>
                   </svg>
                   Pago seguro con cifrado SSL de 256 bits
+                </div>
+
+                <div className="flex flex-col items-center gap-1">
+                  <img src="https://i.imgur.com/Kb5lo1f.jpeg" alt="QR Pago" className="h-20 w-20 object-contain rounded-lg" />
+                  <p className="text-xs text-gray-500 font-medium">Paga más rápido</p>
                 </div>
 
                 <button

@@ -7,6 +7,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "www.epsemaq.com.pe",
       },
+      {
+        protocol: "https",
+        hostname: "epsemaq.com.pe",
+      },
     ],
   },
 };
