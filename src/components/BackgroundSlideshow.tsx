@@ -26,9 +26,24 @@ export const SLIDES: Slide[] = [
     subtitle: 'Análisis permanente del agua para tu seguridad.',
   },
   {
-    img: 'https://www.epsemaq.com.pe/slides/01K75RNQS1RF6NMW4H0HKXGR92.jpg',
+    img: 'https://epsemaq.com.pe/uploads/1779121866996-pstrgh.jpg',
     title: 'Alianzas estratégicas',
     subtitle: 'Colaboración con instituciones para mejorar el servicio de agua.',
+  },
+  {
+    img: 'https://epsemaq.com.pe/uploads/1779121901553-6kdt2a.jpg',
+    title: 'Mejorando Nuestros Servicios',
+    subtitle: 'Atención de Emergencias para garantizar el servicio de agua.',
+  },
+  {
+    img: 'https://epsemaq.com.pe/uploads/1779123373900-rk87xm.jpg',
+    title: 'Cerca de la gente',
+    subtitle: 'Campañas de sensibilización y atención al ciudadano.',
+  },
+  {
+    img: 'https://epsemaq.com.pe/uploads/1779139934013-jltiv.jpg',
+    title: 'Control de calidad',
+    subtitle: 'Análisis permanente del agua para tu seguridad.',
   },
 ];
 
