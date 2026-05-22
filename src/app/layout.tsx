@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "E.P.S. EMAQ S.A. — Pago de Recibos en Línea",
+  title: "EMAQs - Quillabamba",
   description: "Consulte su deuda y pague su recibo de agua de forma rápida y segura desde cualquier dispositivo.",
 };
 
