@@ -7,7 +7,7 @@ export default function Hero() {
   const slide = SLIDES[current];
 
   return (
-    <section className="relative text-white py-24 px-4">
+    <section className="relative text-white min-h-screen flex items-center px-4">
       {/* Viñeta */}
       <div
         className="absolute inset-0"
