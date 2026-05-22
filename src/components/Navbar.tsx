@@ -15,31 +15,29 @@ export default function Navbar() {
   return (
     <div className="sticky top-0 z-50">
       {/* Top bar */}
-      <div className="bg-transparent border-b border-white/10 text-white text-xs">
-        <div className="max-w-6xl mx-auto px-4 py-1.5 flex items-center justify-between">
-          {/* Móvil: solo teléfono principal | Desktop: todos los contactos */}
-          <div className="flex items-center gap-4">
-            <a href="tel:+51973598606" className="flex items-center gap-1.5 text-white/80 hover:text-white transition-colors">
-              <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-              </svg>
-              973 598 606
-            </a>
-            <a href="tel:+51973597095" className="hidden md:flex items-center gap-1.5 text-white/80 hover:text-white transition-colors">
-              <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-              </svg>
-              973 597 095
-            </a>
-            <a href="mailto:consultas@epsemaq.com.pe" className="hidden md:flex items-center gap-1.5 text-white/80 hover:text-white transition-colors">
-              <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-              consultas@epsemaq.com.pe
-            </a>
-          </div>
+      <div className="bg-transparent border-b border-white/10 text-white text-sm">
+        <div className="max-w-6xl mx-auto px-4 py-2 flex items-center justify-between gap-4">
+          {/* Teléfono */}
+          <a href="tel:+51973598606" className="flex items-center gap-2 text-white/90 hover:text-white transition-colors whitespace-nowrap">
+            <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            973 598 606
+          </a>
+          <a href="tel:+51973597095" className="hidden md:flex items-center gap-2 text-white/80 hover:text-white transition-colors whitespace-nowrap">
+            <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            973 597 095
+          </a>
+          <a href="mailto:consultas@epsemaq.com.pe" className="hidden md:flex items-center gap-2 text-white/80 hover:text-white transition-colors whitespace-nowrap">
+            <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            consultas@epsemaq.com.pe
+          </a>
           {/* Iconos sociales */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 ml-auto">
             {[
               { src: 'https://epsemaq.com.pe/uploads/1775682282972-5qylbw.png', alt: 'YouTube',   href: 'https://www.youtube.com/@EPSEMAQS.A' },
               { src: 'https://epsemaq.com.pe/uploads/1778853665763-75dia.png',  alt: 'TikTok',    href: 'https://www.tiktok.com/@eps.emaq.s.a' },
@@ -48,7 +46,7 @@ export default function Navbar() {
             ].map(({ src, alt, href }) => (
               <a key={alt} href={href} target="_blank" rel="noopener noreferrer" title={alt}
                 className="hover:scale-110 transition-transform">
-                <img src={src} alt={alt} className="h-5 w-5 object-contain" />
+                <img src={src} alt={alt} className="h-7 w-7 object-contain" />
               </a>
             ))}
           </div>
