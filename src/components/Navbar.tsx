@@ -15,7 +15,7 @@ export default function Navbar() {
   return (
     <div className="sticky top-0 z-50">
       {/* Top bar */}
-      <div className="bg-black/85 border-b border-white/10 text-white text-xs hidden md:block">
+      <div className="bg-white/85 border-b border-black/10 text-gray-700 text-xs hidden md:block">
         <div className="max-w-6xl mx-auto px-4 py-1.5 flex items-center justify-between">
           <div className="flex items-center gap-4">
             {[
@@ -55,8 +55,8 @@ export default function Navbar() {
 
       {/* Navbar principal */}
       <nav
-        className={`transition-all duration-300 text-white ${
-          scrolled ? 'bg-black/80 shadow-lg border-b border-white/10' : 'bg-transparent'
+        className={`transition-all duration-300 ${
+          scrolled ? 'bg-white/85 text-gray-800 shadow-lg border-b border-black/10' : 'text-white'
         }`}
       >
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
