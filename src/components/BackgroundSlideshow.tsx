@@ -84,7 +84,7 @@ export default function BackgroundSlideshow({ children }: { children: React.Reac
               position: 'absolute', inset: 0,
               backgroundImage: `url(${SLIDES[next].img})`,
               backgroundSize: 'cover',
-              backgroundPosition: 'center top',
+              backgroundPosition: 'center center',
             }}
           />
         </div>
@@ -97,7 +97,7 @@ export default function BackgroundSlideshow({ children }: { children: React.Reac
               position: 'absolute', inset: 0,
               backgroundImage: `url(${SLIDES[current].img})`,
               backgroundSize: 'cover',
-              backgroundPosition: 'center top',
+              backgroundPosition: 'center center',
               opacity: fading ? 0 : 1,
               transition: 'opacity 1s ease',
               animation: `${animationName} 7s ease-out forwards`,
