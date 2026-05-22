@@ -15,7 +15,7 @@ export default function Navbar() {
   return (
     <div className="sticky top-0 z-50">
       {/* Top bar */}
-      <div className="bg-white/85 border-b border-black/10 text-gray-700 text-xs hidden md:block">
+      <div className="bg-transparent border-b border-white/10 text-white text-xs block">
         <div className="max-w-6xl mx-auto px-4 py-1.5 flex items-center justify-between">
           <div className="flex items-center gap-4">
             {[
@@ -23,7 +23,7 @@ export default function Navbar() {
               { label: '973 597 095', href: 'tel:+51973597095' },
               { label: 'consultas@epsemaq.com.pe', href: 'mailto:consultas@epsemaq.com.pe' },
             ].map(({ label, href }) => (
-              <a key={label} href={href} className="flex items-center gap-1.5 text-gray-600 hover:text-gray-900 transition-colors">
+              <a key={label} href={href} className="flex items-center gap-1.5 text-white/80 hover:text-white transition-colors">
                 {href.startsWith('tel') ? (
                   <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
