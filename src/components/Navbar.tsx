@@ -15,22 +15,22 @@ export default function Navbar() {
   return (
     <div className="sticky top-0 z-50">
       {/* Top bar */}
-      <div className={`transition-all duration-300 border-b text-sm ${scrolled ? 'bg-white/85 text-gray-700 border-black/10' : 'bg-transparent text-white border-white/10'}`}>
+      <div className="border-b border-white/10 text-white text-sm" style={{ backdropFilter: 'blur(6px)', background: 'rgba(0,0,0,0.55)' }}>
         <div className="max-w-6xl mx-auto px-4 py-2 flex items-center justify-between gap-4">
           {/* Teléfono */}
-          <a href="tel:+51973598606" className={`flex items-center gap-2 transition-colors whitespace-nowrap ${scrolled ? 'text-gray-600 hover:text-gray-900' : 'text-white/90 hover:text-white'}`}>
+          <a href="tel:+51973598606" className="flex items-center gap-2 text-white/90 hover:text-white transition-colors whitespace-nowrap">
             <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
             </svg>
             973 598 606
           </a>
-          <a href="tel:+51973597095" className={`hidden md:flex items-center gap-2 transition-colors whitespace-nowrap ${scrolled ? 'text-gray-600 hover:text-gray-900' : 'text-white/80 hover:text-white'}`}>
+          <a href="tel:+51973597095" className="hidden md:flex items-center gap-2 text-white/80 hover:text-white transition-colors whitespace-nowrap">
             <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
             </svg>
             973 597 095
           </a>
-          <a href="mailto:consultas@epsemaq.com.pe" className={`hidden md:flex items-center gap-2 transition-colors whitespace-nowrap ${scrolled ? 'text-gray-600 hover:text-gray-900' : 'text-white/80 hover:text-white'}`}>
+          <a href="mailto:consultas@epsemaq.com.pe" className="hidden md:flex items-center gap-2 text-white/80 hover:text-white transition-colors whitespace-nowrap">
             <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
@@ -55,9 +55,8 @@ export default function Navbar() {
 
       {/* Navbar principal */}
       <nav
-        className={`transition-all duration-300 ${
-          scrolled ? 'bg-white/85 text-gray-800 shadow-lg border-b border-black/10' : 'text-white'
-        }`}
+        className="text-white border-b border-white/10"
+        style={{ backdropFilter: 'blur(6px)', background: 'rgba(0,0,0,0.55)' }}
       >
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center">
