@@ -12,21 +12,23 @@ export type Slide = {
 export const SLIDES: Slide[] = [
   {
     img: 'https://www.epsemaq.com.pe/slides/01K75RNQS1RF6NMW4H0HKXGR92.jpg',
-    title: 'Pague su recibo de agua desde casa',
-    highlight: 'recibo de agua',
-    subtitle: 'Consulte su deuda y realice su pago de forma rápida, segura y sin filas desde cualquier dispositivo.',
+    title: 'Mejorando Nuestros Servicios',
+    subtitle: 'Atención de Emergencias para garantizar el servicio de agua.',
   },
   {
     img: 'https://www.epsemaq.com.pe/slides/01K762XAGBW99VC94RBFBXF24C.jpg',
-    title: 'Agua potable para toda Quillabamba',
-    highlight: 'Quillabamba',
-    subtitle: 'Servicio confiable y continuo para el bienestar de tu hogar y familia.',
+    title: 'Cerca de la gente',
+    subtitle: 'Campañas de sensibilización y atención al ciudadano.',
   },
   {
     img: 'https://www.epsemaq.com.pe/slides/01K75RK68CF8MA2XGAVC3MEY2F.jpg',
-    title: 'Pago seguro en línea, sin filas',
-    highlight: 'sin filas',
-    subtitle: 'Disponible las 24 horas del día. Paga rápido y recibe tu comprobante al instante.',
+    title: 'Control de calidad',
+    subtitle: 'Análisis permanente del agua para tu seguridad.',
+  },
+  {
+    img: 'https://www.epsemaq.com.pe/slides/01K75RNQS1RF6NMW4H0HKXGR92.jpg',
+    title: 'Alianzas estratégicas',
+    subtitle: 'Colaboración con instituciones para mejorar el servicio de agua.',
   },
 ];
 
