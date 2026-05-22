@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+@keyframes kenburns-in {
+  from { transform: scale(1); }
+  to   { transform: scale(1.14); }
+}
+
+@keyframes kenburns-out {
+  from { transform: scale(1.14); }
+  to   { transform: scale(1); }
+}
+
 /* Forzar siempre modo claro */
 :root {
   color-scheme: light;

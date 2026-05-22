@@ -1,21 +1,55 @@
+'use client';
+
+import { useSlideshowContext, SLIDES } from './BackgroundSlideshow';
+
 export default function Hero() {
+  const { current, fading } = useSlideshowContext();
+  const slide = SLIDES[current];
+
+  const parts = slide.highlight ? slide.title.split(slide.highlight) : null;
+
   return (
     <section className="relative text-white py-24 px-4">
-      {/* Viñeta: oscurece los bordes, despeja el centro */}
+      {/* Viñeta */}
       <div
         className="absolute inset-0"
         style={{ background: 'radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.55) 100%)' }}
       />
 
       <div className="relative z-10 max-w-4xl mx-auto text-center">
-        <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4"
-          style={{ textShadow: '0 2px 12px rgba(0,0,0,0.7)' }}>
-          ¡Bienvenido! Pague su <span className="text-[#7dd3fc]">recibo de agua</span> desde casa
+        {/* Título con frase rotativa */}
+        <h1
+          className="text-4xl md:text-5xl font-bold leading-tight mb-4"
+          style={{
+            textShadow: '0 2px 12px rgba(0,0,0,0.7)',
+            opacity: fading ? 0 : 1,
+            transition: 'opacity 0.7s ease',
+          }}
+        >
+          {parts ? (
+            <>
+              {parts[0]}
+              <span className="text-[#7dd3fc]">{slide.highlight}</span>
+              {parts[1]}
+            </>
+          ) : (
+            slide.title
+          )}
         </h1>
-        <p className="text-blue-100 text-lg mb-8 max-w-xl mx-auto"
-          style={{ textShadow: '0 1px 6px rgba(0,0,0,0.6)' }}>
-          Consulte su deuda y realice su pago de forma rápida, segura y sin filas desde cualquier dispositivo.
+
+        {/* Subtítulo rotativo */}
+        <p
+          className="text-blue-100 text-lg mb-8 max-w-xl mx-auto"
+          style={{
+            textShadow: '0 1px 6px rgba(0,0,0,0.6)',
+            opacity: fading ? 0 : 1,
+            transition: 'opacity 0.7s ease 0.08s',
+          }}
+        >
+          {slide.subtitle}
         </p>
+
+        {/* CTAs — siempre visibles */}
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <a
             href="#pagar"
@@ -39,7 +73,6 @@ export default function Hero() {
           Pagos seguros con VISA y Mastercard
         </div>
       </div>
-
     </section>
   );
 }
