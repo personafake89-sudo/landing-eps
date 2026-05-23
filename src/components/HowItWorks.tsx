@@ -16,7 +16,7 @@ const steps = [
   },
   {
     num: "04",
-    title: "Paga con tarjeta",
+    title: "Paga con tarjeta o con tu Billetera Favorita",
     desc: "Ingresa los datos de tu tarjeta VISA o Mastercard y confirma el pago.",
   },
 ];
