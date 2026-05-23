@@ -26,7 +26,7 @@ export default function HowItWorks() {
     <section id="como-funciona" className="py-16 px-4 bg-white">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <span className="text-[#0057a8] font-semibold text-sm uppercase tracking-wider">Proceso Simple</span>
+          <span className="text-[#0057a8] font-semibold text-sm uppercase tracking-wider">Bienvenido!</span>
           <h2 className="text-3xl font-bold text-gray-800 mt-2">Paga tu Recibo Digital aqui</h2>
           <p className="text-gray-500 mt-3">Facil y Rapido</p>
         </div>
