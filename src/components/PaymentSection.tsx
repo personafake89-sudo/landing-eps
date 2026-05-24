@@ -258,6 +258,18 @@ export default function PaymentSection() {
                       <span className="font-medium text-gray-800 text-right max-w-[60%]">{cliente.direccion}</span>
                     </div>
                   )}
+                  {cliente.telefono && (
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-500">Teléfono:</span>
+                      <span className="font-medium text-gray-800">{cliente.telefono}</span>
+                    </div>
+                  )}
+                  {cliente.email && (
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-500">Correo:</span>
+                      <span className="font-medium text-gray-800 text-right max-w-[60%]">{cliente.email}</span>
+                    </div>
+                  )}
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-500">Último día de pago:</span>
                     <span className="font-medium text-gray-800">{new Date().toLocaleDateString('es-PE', { day: '2-digit', month: '2-digit', year: 'numeric' })}</span>
