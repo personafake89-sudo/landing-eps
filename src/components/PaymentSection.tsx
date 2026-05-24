@@ -130,7 +130,7 @@ export default function PaymentSection() {
           <span className="text-blue-200 font-semibold text-sm uppercase tracking-wider">Pago en Línea</span>
           <h2 className="text-3xl font-bold text-white mt-2 mb-4" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.6)' }}>Consulte y pague su recibo</h2>
           <p className="text-blue-100 mb-6 leading-relaxed" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>
-            Ingrese su código de cliente para ver su saldo actual y pagar de forma rápida y segura con su tarjeta de débito o crédito.
+            Ingrese su Nro. de Suministro para pagar de forma rápida y segura con su tarjeta de débito o crédito.
           </p>
           <div className="space-y-3 mb-6">
             {['Sin comisiones adicionales', 'Comprobante enviado por correo', 'Disponible las 24 horas', 'Certificado de seguridad SSL'].map(t => (
@@ -436,7 +436,7 @@ export default function PaymentSection() {
                 </div>
 
                 <div className="flex flex-col items-center gap-1">
-                  <img src="https://i.imgur.com/Kb5lo1f.jpeg" alt="QR Pago" className="h-20 w-20 object-contain rounded-lg" />
+                  <img src="https://i.imgur.com/Kb5lo1f.jpeg" alt="QR Pago" className="h-28 w-28 object-contain rounded-lg" />
                   <p className="text-xs text-gray-500 font-medium">Paga más rápido</p>
                 </div>
 
