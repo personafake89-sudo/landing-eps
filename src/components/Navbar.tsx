@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 
 const BASE = 'https://epsemaq.com.pe';
@@ -15,17 +15,17 @@ const NAV: NavTop[] = [
       {
         label: 'Nosotros',
         children: [
-          { label: 'Visión – Misión',       href: `${BASE}/pagina/vision-mision` },
-          { label: 'Información General',   href: `${BASE}/pagina/informacion-general` },
-          { label: 'Valores Corporativos',  href: `${BASE}/pagina/valores-corporativos` },
-          { label: 'Historia',              href: `${BASE}/pagina/historia` },
+          { label: 'Visión – Misión',      href: `${BASE}/pagina/vision-mision` },
+          { label: 'Información General',  href: `${BASE}/pagina/informacion-general` },
+          { label: 'Valores Corporativos', href: `${BASE}/pagina/valores-corporativos` },
+          { label: 'Historia',             href: `${BASE}/pagina/historia` },
         ],
       },
       {
         label: 'Organización',
         children: [
-          { label: 'Organigrama',   href: `${BASE}/pagina/organigrama-emaq` },
-          { label: 'Funcionarios',  href: `${BASE}/funcionarios` },
+          { label: 'Organigrama',  href: `${BASE}/pagina/organigrama-emaq` },
+          { label: 'Funcionarios', href: `${BASE}/funcionarios` },
         ],
       },
     ],
@@ -40,9 +40,9 @@ const NAV: NavTop[] = [
   {
     label: 'Imagen Institucional',
     children: [
-      { label: 'Comunicados',        href: `${BASE}/noticias?categoria=comunicado` },
-      { label: 'Noticias',           href: `${BASE}/noticias` },
-      { label: 'Educación Sanitaria',href: `${BASE}/pagina/educacion-sanitaria` },
+      { label: 'Comunicados',         href: `${BASE}/noticias?categoria=comunicado` },
+      { label: 'Noticias',            href: `${BASE}/noticias` },
+      { label: 'Educación Sanitaria', href: `${BASE}/pagina/educacion-sanitaria` },
     ],
   },
   {
@@ -58,59 +58,85 @@ const NAV: NavTop[] = [
   { label: 'Contacto', href: `${BASE}/contacto` },
 ];
 
-// ——— Submenú de segundo nivel (aparece a la derecha) ———
+const ChevronDown = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" width={12} height={12}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="m6 9 6 6 6-6"/>
+  </svg>
+);
+const ChevronRight = () => (
+  <svg fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" width={12} height={12}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="m9 6 6 6-6 6"/>
+  </svg>
+);
+
+// ——— Sub-dropdown de segundo nivel ———
 function DesktopSub({ item }: { item: NavSub }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
   return (
-    <div className="group/sub relative">
+    <div
+      ref={ref}
+      className="relative"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
       <button className="w-full flex items-center justify-between px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-[#0057a8] transition-colors">
         {item.label}
-        <svg className="w-3 h-3 shrink-0 ml-2" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" d="m9 6 6 6-6 6"/>
-        </svg>
+        <ChevronRight />
       </button>
-      <div className="hidden group-hover/sub:block absolute left-full top-0 pl-1 z-50 min-w-[200px]">
-        <div className="bg-white rounded-lg shadow-lg border border-gray-100 py-1">
-          {item.children.map(child => (
-            <a key={child.label} href={child.href}
-              target={child.href.startsWith('http') ? '_blank' : undefined}
-              rel="noopener noreferrer"
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-[#0057a8] transition-colors whitespace-nowrap">
-              {child.label}
-            </a>
-          ))}
+      {open && (
+        <div className="absolute left-full top-0 pl-1 z-50 min-w-[200px]">
+          <div className="bg-white rounded-lg shadow-lg border border-gray-100 py-1">
+            {item.children.map(child => (
+              <a key={child.label} href={child.href}
+                target={child.href.startsWith('http') ? '_blank' : undefined}
+                rel="noopener noreferrer"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-[#0057a8] transition-colors whitespace-nowrap">
+                {child.label}
+              </a>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
 
 // ——— Dropdown de primer nivel ———
 function DesktopDropdown({ item }: { item: NavTop }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
   return (
-    <div className="group/top relative">
+    <div
+      ref={ref}
+      className="relative"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
       <button className="flex items-center gap-1 px-2 py-1.5 hover:text-blue-200 transition-colors whitespace-nowrap">
         {item.label}
-        <svg className="w-3 h-3 transition-transform duration-200 group-hover/top:rotate-180" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" d="m6 9 6 6 6-6"/>
-        </svg>
+        <ChevronDown className={`transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
       </button>
-      {/* puente invisible para no perder el hover al bajar el cursor */}
-      <div className="hidden group-hover/top:block absolute top-full left-0 pt-1 z-50 min-w-[190px]">
-        <div className="bg-white rounded-lg shadow-lg border border-gray-100 py-1">
-          {item.children!.map(child =>
-            'children' in child ? (
-              <DesktopSub key={child.label} item={child as NavSub} />
-            ) : (
-              <a key={child.label} href={(child as NavLeaf).href}
-                target={(child as NavLeaf).href.startsWith('http') ? '_blank' : undefined}
-                rel="noopener noreferrer"
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-[#0057a8] transition-colors whitespace-nowrap">
-                {child.label}
-              </a>
-            )
-          )}
+      {open && (
+        <div className="absolute top-full left-0 pt-1 z-50 min-w-[190px]">
+          <div className="bg-white rounded-lg shadow-lg border border-gray-100 py-1">
+            {item.children!.map(child =>
+              'children' in child ? (
+                <DesktopSub key={child.label} item={child as NavSub} />
+              ) : (
+                <a key={child.label} href={(child as NavLeaf).href}
+                  target={(child as NavLeaf).href.startsWith('http') ? '_blank' : undefined}
+                  rel="noopener noreferrer"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-[#0057a8] transition-colors whitespace-nowrap">
+                  {child.label}
+                </a>
+              )
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
@@ -141,9 +167,7 @@ function MobileItem({ item, expanded, toggle, onClose }: {
       <button onClick={() => toggle(item.label)}
         className="w-full flex items-center justify-between py-2 text-white/90 hover:text-white transition-colors">
         {item.label}
-        <svg className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" d="m6 9 6 6 6-6"/>
-        </svg>
+        <ChevronDown className={`transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
       </button>
       {isOpen && (
         <div className="pl-4 border-l border-white/20 ml-2 mb-1 space-y-0.5">
@@ -168,13 +192,13 @@ function MobileItem({ item, expanded, toggle, onClose }: {
 
 // ——— Navbar principal ———
 export default function Navbar() {
-  const [mobileOpen, setMobileOpen]     = useState(false);
-  const [expanded, setExpanded]         = useState<string[]>([]);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [expanded, setExpanded]     = useState<string[]>([]);
 
   useEffect(() => {
-    const onScroll = () => {};
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
+    const close = () => setMobileOpen(false);
+    window.addEventListener('resize', close);
+    return () => window.removeEventListener('resize', close);
   }, []);
 
   function toggleExpanded(label: string) {
@@ -226,7 +250,6 @@ export default function Navbar() {
       <nav className="text-white border-b border-white/10" style={{ backdropFilter: 'blur(6px)', background: 'rgba(0,0,0,0.55)' }}>
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
 
-          {/* Logo */}
           <Image
             src="https://epsemaq.com.pe/uploads/1779119577635-6ukv1v.png"
             alt="E.P.S. EMAQ S.A."
@@ -235,7 +258,7 @@ export default function Navbar() {
             priority
           />
 
-          {/* Desktop nav */}
+          {/* Desktop */}
           <div className="hidden md:flex items-center gap-1 text-sm font-medium">
             {NAV.map(item =>
               item.children ? (
@@ -257,7 +280,7 @@ export default function Navbar() {
             />
           </div>
 
-          {/* Hamburger mobile */}
+          {/* Hamburger */}
           <button className="md:hidden" onClick={() => setMobileOpen(!mobileOpen)}>
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
@@ -268,9 +291,9 @@ export default function Navbar() {
 
         {/* Mobile menu */}
         {mobileOpen && (
-          <div className="md:hidden px-4 pb-4 text-sm font-medium bg-black/60 border-t border-white/10 space-y-1">
+          <div className="md:hidden px-4 pb-4 text-sm font-medium border-t border-white/10 space-y-1" style={{ background: 'rgba(0,0,0,0.7)' }}>
             {NAV.map(item => (
-              <MobileItem key={item.label} item={item} expanded={expanded} toggle={toggleExpanded} onClose={() => setMobileOpen(false)} />
+              <MobileItem key={item.label} item={item} expanded={expanded} toggle={toggleExpanded} onClose={() => { setMobileOpen(false); setExpanded([]); }} />
             ))}
             <div className="border-t border-white/20 pt-3 mt-2 flex flex-col gap-2 text-white/80">
               <a href="tel:+51973598606" className="flex items-center gap-2">
