@@ -5,10 +5,12 @@ import HowItWorks from "@/components/HowItWorks";
 import PaymentSection from "@/components/PaymentSection";
 import Footer from "@/components/Footer";
 import BackgroundSlideshow from "@/components/BackgroundSlideshow";
+import AvisoModal from "@/components/AvisoModal";
 
 export default function Home() {
   return (
     <BackgroundSlideshow>
+      <AvisoModal />
       <Navbar />
       <Hero />
       <HowItWorks />
