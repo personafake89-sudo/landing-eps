@@ -435,11 +435,6 @@ export default function PaymentSection() {
                   Pago seguro con cifrado SSL de 256 bits
                 </div>
 
-                <div className="flex flex-col items-center gap-1">
-                  <img src="https://i.imgur.com/Kb5lo1f.jpeg" alt="QR Pago" className="h-28 w-28 object-contain rounded-lg" />
-                  <p className="text-xs text-gray-500 font-medium">Paga más rápido</p>
-                </div>
-
                 <button
                   type="submit"
                   disabled={pagando}

