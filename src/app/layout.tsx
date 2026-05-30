@@ -21,7 +21,7 @@ const BASE_URL = "https://epsemaq.epsagua.com";
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "EPS EMAQ S.A. | Pago de Recibo de Agua en Línea – Quillabamba",
+    default: "EPS EMAQ S.A. - Quillabamba",
     template: "%s | EPS EMAQ S.A.",
   },
   description:
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     type: "website",
     url: BASE_URL,
     siteName: "EPS EMAQ S.A.",
-    title: "EPS EMAQ S.A. | Pago de Recibo de Agua en Línea – Quillabamba",
+    title: "EPS EMAQ S.A. - Quillabamba",
     description:
       "Consulte y pague su recibo de agua potable de EPS EMAQ en Quillabamba, La Convención, Cusco. Pago rápido, seguro y sin filas.",
     locale: "es_PE",
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "EPS EMAQ S.A. | Pago de Recibo de Agua en Línea",
+    title: "EPS EMAQ S.A. - Quillabamba",
     description:
       "Consulte y pague su recibo de agua potable de EPS EMAQ en Quillabamba, La Convención, Cusco.",
     images: ["/og-image.png"],
