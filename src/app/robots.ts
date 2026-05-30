@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/admin/", "/api/"],
       },
     ],
-    sitemap: "https://landing-eps.vercel.app/sitemap.xml",
+    sitemap: "https://www.epsagua.com/sitemap.xml",
   };
 }

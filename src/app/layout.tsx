@@ -16,7 +16,7 @@ const inter = Inter({
   display: "swap",
 });
 
-const BASE_URL = "https://landing-eps.vercel.app";
+const BASE_URL = "https://www.epsagua.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
@@ -69,7 +69,7 @@ const jsonLd = {
   "@type": "LocalBusiness",
   name: "EPS EMAQ S.A.",
   alternateName: "Empresa Prestadora de Servicios de Saneamiento EMAQ",
-  url: "https://landing-eps.vercel.app",
+  url: "https://www.epsagua.com",
   logo: "https://epsemaq.com.pe/uploads/1775604684441-4564us.png",
   image: "https://www.epsemaq.com.pe/slides/01K75RNQS1RF6NMW4H0HKXGR92.jpg",
   description:
