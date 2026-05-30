@@ -10,6 +10,10 @@ import AvisoModal from "@/components/AvisoModal";
 export default function Home() {
   return (
     <BackgroundSlideshow>
+      {/* H1 estático para crawlers; el Hero visual lo oculta visualmente */}
+      <h1 className="sr-only">
+        EPS EMAQ S.A. – Pago de Recibo de Agua en Línea – Quillabamba, La Convención, Cusco
+      </h1>
       <AvisoModal />
       <Navbar />
       <Hero />
