@@ -70,8 +70,8 @@ const jsonLd = {
   name: "EPS EMAQ S.A.",
   alternateName: "Empresa Prestadora de Servicios de Saneamiento EMAQ",
   url: "https://epsemaq.epsagua.com",
-  logo: "https://epsemaq.com.pe/uploads/1775604684441-4564us.png",
-  image: "https://www.epsemaq.com.pe/slides/01K75RNQS1RF6NMW4H0HKXGR92.jpg",
+  logo: `${BASE_URL}/images/logo.png`,
+  image: `${BASE_URL}/images/slide-01.jpg`,
   description:
     "EPS EMAQ S.A. brinda servicios de agua potable y alcantarillado en Quillabamba, La Convención, Cusco.",
   address: {
@@ -125,6 +125,10 @@ export default function RootLayout({
   return (
     <html lang="es" className={`h-full antialiased ${poppins.variable} ${inter.variable}`} style={{ colorScheme: 'light' }}>
       <head>
+        <meta name="geo.region" content="PE-CUS" />
+        <meta name="geo.placename" content="Quillabamba, La Convención, Cusco, Perú" />
+        <meta name="geo.position" content="-12.8635;-72.6929" />
+        <meta name="ICBM" content="-12.8635, -72.6929" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
