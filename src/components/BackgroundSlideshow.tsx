@@ -11,37 +11,37 @@ export type Slide = {
 
 export const SLIDES: Slide[] = [
   {
-    img: 'https://www.epsemaq.com.pe/slides/01K75RNQS1RF6NMW4H0HKXGR92.jpg',
+    img: '/images/slide-01.jpg',
     title: 'Mejorando Nuestros Servicios',
     subtitle: 'Atención de Emergencias para garantizar el servicio de agua.',
   },
   {
-    img: 'https://www.epsemaq.com.pe/slides/01K762XAGBW99VC94RBFBXF24C.jpg',
+    img: '/images/slide-02.jpg',
     title: 'Cerca de la gente',
     subtitle: 'Campañas de sensibilización y atención al ciudadano.',
   },
   {
-    img: 'https://www.epsemaq.com.pe/slides/01K75RK68CF8MA2XGAVC3MEY2F.jpg',
+    img: '/images/slide-03.jpg',
     title: 'Control de calidad',
     subtitle: 'Análisis permanente del agua para tu seguridad.',
   },
   {
-    img: 'https://epsemaq.com.pe/uploads/1779121866996-pstrgh.jpg',
+    img: '/images/slide-04.jpg',
     title: 'Alianzas estratégicas',
     subtitle: 'Colaboración con instituciones para mejorar el servicio de agua.',
   },
   {
-    img: 'https://epsemaq.com.pe/uploads/1779121901553-6kdt2a.jpg',
+    img: '/images/slide-05.jpg',
     title: 'Mejorando Nuestros Servicios',
     subtitle: 'Atención de Emergencias para garantizar el servicio de agua.',
   },
   {
-    img: 'https://epsemaq.com.pe/uploads/1779123373900-rk87xm.jpg',
+    img: '/images/slide-06.jpg',
     title: 'Cerca de la gente',
     subtitle: 'Campañas de sensibilización y atención al ciudadano.',
   },
   {
-    img: 'https://epsemaq.com.pe/uploads/1779139934013-jltiv.jpg',
+    img: '/images/slide-07.jpg',
     title: 'Control de calidad',
     subtitle: 'Análisis permanente del agua para tu seguridad.',
   },

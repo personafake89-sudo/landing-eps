@@ -244,10 +244,10 @@ export default function Navbar() {
           </a>
           <div className="flex items-center gap-3 ml-auto">
             {[
-              { src: 'https://epsemaq.com.pe/uploads/1775682282972-5qylbw.png', alt: 'YouTube',   href: 'https://www.youtube.com/@EPSEMAQS.A' },
-              { src: 'https://epsemaq.com.pe/uploads/1778853665763-75dia.png',  alt: 'TikTok',    href: 'https://www.tiktok.com/@eps.emaq.s.a' },
-              { src: 'https://epsemaq.com.pe/uploads/1775679116206-w2jch.png',  alt: 'Facebook',  href: 'https://www.facebook.com/p/EPS-EMAQ-Quillabamba-100063889960218/?locale=es_LA' },
-              { src: 'https://epsemaq.com.pe/uploads/1775682850820-iw93i.png',  alt: 'Instagram', href: 'https://www.instagram.com/eps_emaq_sa' },
+              { src: '/images/icon-youtube.png',   alt: 'YouTube',   href: 'https://www.youtube.com/@EPSEMAQS.A' },
+              { src: '/images/icon-tiktok.png',    alt: 'TikTok',    href: 'https://www.tiktok.com/@eps.emaq.s.a' },
+              { src: '/images/icon-facebook.png',  alt: 'Facebook',  href: 'https://www.facebook.com/p/EPS-EMAQ-Quillabamba-100063889960218/?locale=es_LA' },
+              { src: '/images/icon-instagram.png', alt: 'Instagram', href: 'https://www.instagram.com/eps_emaq_sa' },
             ].map(({ src, alt, href }) => (
               <a key={alt} href={href} target="_blank" rel="noopener noreferrer" title={alt} className="hover:scale-110 transition-transform">
                 <img src={src} alt={alt} className="h-7 w-7 object-contain" />
@@ -269,9 +269,8 @@ export default function Navbar() {
           : { background: 'rgba(0,0,0,0.40)' }}
       >
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-
           <Image
-            src="https://epsemaq.com.pe/uploads/1779119577635-6ukv1v.png"
+            src="/images/logo.png"
             alt="E.P.S. EMAQ S.A."
             width={160} height={48}
             className="object-contain h-12 w-auto"
@@ -293,7 +292,7 @@ export default function Navbar() {
               )
             )}
             <Image
-              src="https://epsemaq.com.pe/uploads/1777303095747-ob7ys9.png"
+              src="/images/sello.png"
               alt="Sello EMAQ"
               width={120} height={120}
               className="object-contain h-10 w-auto ml-2"
