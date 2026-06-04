@@ -77,10 +77,10 @@ export default function Footer() {
           <h4 className="font-bold mb-4 text-white">Redes Sociales</h4>
           <div className="flex items-center gap-3 mb-6">
             {[
-              { src: 'https://epsemaq.com.pe/uploads/1775682282972-5qylbw.png', alt: 'YouTube',   href: 'https://www.youtube.com/@EPSEMAQS.A' },
-              { src: 'https://epsemaq.com.pe/uploads/1778853665763-75dia.png',  alt: 'TikTok',    href: 'https://www.tiktok.com/@eps.emaq.s.a' },
-              { src: 'https://epsemaq.com.pe/uploads/1775679116206-w2jch.png',  alt: 'Facebook',  href: 'https://www.facebook.com/p/EPS-EMAQ-Quillabamba-100063889960218/?locale=es_LA' },
-              { src: 'https://epsemaq.com.pe/uploads/1775682850820-iw93i.png',  alt: 'Instagram', href: 'https://www.instagram.com/eps_emaq_sa' },
+              { src: '/images/icon-youtube.png',   alt: 'YouTube',   href: 'https://www.youtube.com/@EPSEMAQS.A' },
+              { src: '/images/icon-tiktok.png',    alt: 'TikTok',    href: 'https://www.tiktok.com/@eps.emaq.s.a' },
+              { src: '/images/icon-facebook.png',  alt: 'Facebook',  href: 'https://www.facebook.com/p/EPS-EMAQ-Quillabamba-100063889960218/?locale=es_LA' },
+              { src: '/images/icon-instagram.png', alt: 'Instagram', href: 'https://www.instagram.com/eps_emaq_sa' },
             ].map(({ src, alt, href }) => (
               <a key={alt} href={href} target="_blank" rel="noopener noreferrer" title={alt}
                 className="hover:scale-110 transition-transform">
@@ -91,7 +91,7 @@ export default function Footer() {
           <div>
             <a href="https://epsemaq.com.pe" target="_blank" rel="noopener noreferrer">
               <img
-                src="https://epsemaq.com.pe/uploads/1775604684441-4564us.png"
+                src="/images/libro-reclamaciones.png"
                 alt="Libro de Reclamaciones"
                 className="h-20 w-auto object-contain hover:scale-105 transition-transform"
               />
