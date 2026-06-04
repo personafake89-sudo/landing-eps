@@ -1,8 +1,11 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import AccesosRapidos from "@/components/AccesosRapidos";
+import WhatsAppRecibo from "@/components/WhatsAppRecibo";
+import QuienesSomos from "@/components/QuienesSomos";
 import Stats from "@/components/Stats";
 import Services from "@/components/Services";
+import EnlacesInteres from "@/components/EnlacesInteres";
 import HowItWorks from "@/components/HowItWorks";
 import PaymentSection from "@/components/PaymentSection";
 import Footer from "@/components/Footer";
@@ -20,10 +23,13 @@ export default function Home() {
       <Navbar />
       <Hero />
       <AccesosRapidos />
+      <WhatsAppRecibo />
       <HowItWorks />
       <PaymentSection />
+      <QuienesSomos />
       <Stats />
       <Services />
+      <EnlacesInteres />
       <Footer />
     </BackgroundSlideshow>
   );
