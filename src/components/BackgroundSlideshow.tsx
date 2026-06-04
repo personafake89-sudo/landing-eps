@@ -47,9 +47,14 @@ export const SLIDES: Slide[] = [
   },
 ];
 
-export const SlideshowContext = createContext<{ current: number; fading: boolean }>({
+export const SlideshowContext = createContext<{
+  current: number;
+  fading: boolean;
+  goTo: (index: number) => void;
+}>({
   current: 0,
   fading: false,
+  goTo: () => {},
 });
 
 export function useSlideshowContext() {
@@ -69,13 +74,23 @@ export default function BackgroundSlideshow({ children }: { children: React.Reac
       }, 1000);
     }, 6000);
     return () => clearInterval(interval);
-  }, []);
+  }, [current]);
+
+  function goTo(index: number) {
+    const target = ((index % SLIDES.length) + SLIDES.length) % SLIDES.length;
+    if (target === current) return;
+    setFading(true);
+    setTimeout(() => {
+      setCurrent(target);
+      setFading(false);
+    }, 600);
+  }
 
   const next = (current + 1) % SLIDES.length;
   const animationName = current % 2 === 0 ? 'kenburns-in' : 'kenburns-out';
 
   return (
-    <SlideshowContext.Provider value={{ current, fading }}>
+    <SlideshowContext.Provider value={{ current, fading, goTo }}>
       <div className="relative min-h-screen">
         {/* Imagen siguiente (detrás, estática) */}
         <div className="fixed inset-0 overflow-hidden" style={{ zIndex: 1 }}>

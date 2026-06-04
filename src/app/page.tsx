@@ -1,5 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import AccesosRapidos from "@/components/AccesosRapidos";
+import Stats from "@/components/Stats";
 import Services from "@/components/Services";
 import HowItWorks from "@/components/HowItWorks";
 import PaymentSection from "@/components/PaymentSection";
@@ -17,8 +19,10 @@ export default function Home() {
       <AvisoModal />
       <Navbar />
       <Hero />
+      <AccesosRapidos />
       <HowItWorks />
       <PaymentSection />
+      <Stats />
       <Services />
       <Footer />
     </BackgroundSlideshow>

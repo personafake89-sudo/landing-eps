@@ -68,6 +68,64 @@ const ChevronRight = () => (
     <path strokeLinecap="round" strokeLinejoin="round" d="m9 6 6 6-6 6"/>
   </svg>
 );
+const SearchIcon = ({ size = 16 }: { size?: number }) => (
+  <svg fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" width={size} height={size}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-4.35-4.35M17 11a6 6 0 1 1-12 0 6 6 0 0 1 12 0Z" />
+  </svg>
+);
+
+// ——— Buscador del top bar (icono al final de las redes) ———
+function TopbarSearch({ scrolled }: { scrolled: boolean }) {
+  const [open, setOpen]   = useState(false);
+  const [query, setQuery] = useState('');
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (open) inputRef.current?.focus();
+  }, [open]);
+
+  function submit(e: React.FormEvent) {
+    e.preventDefault();
+    const q = query.trim();
+    if (!q) { inputRef.current?.focus(); return; }
+    window.location.href = `${BASE}/buscar?q=${encodeURIComponent(q)}`;
+  }
+
+  return (
+    <form
+      onSubmit={submit}
+      className={`flex items-center rounded-full transition-all duration-300 ${
+        open
+          ? scrolled
+            ? 'bg-gray-100 ring-1 ring-gray-300 pl-3 pr-1'
+            : 'bg-white/15 ring-1 ring-white/30 pl-3 pr-1'
+          : ''
+      }`}
+    >
+      <input
+        ref={inputRef}
+        type="search"
+        value={query}
+        onChange={e => setQuery(e.target.value)}
+        onBlur={() => { if (!query.trim()) setOpen(false); }}
+        placeholder="Buscar..."
+        aria-label="Buscar en el sitio"
+        className={`bg-transparent text-sm outline-none transition-all duration-300 ${
+          open ? 'w-32 sm:w-40 opacity-100' : 'w-0 opacity-0'
+        } ${scrolled ? 'placeholder-gray-400' : 'placeholder-white/60'}`}
+      />
+      <button
+        type={open ? 'submit' : 'button'}
+        onClick={() => { if (!open) setOpen(true); }}
+        title="Buscar"
+        aria-label="Buscar"
+        className="p-1.5 hover:scale-110 transition-transform"
+      >
+        <SearchIcon />
+      </button>
+    </form>
+  );
+}
 
 // ——— Sub-dropdown de segundo nivel ———
 function DesktopSub({ item }: { item: NavSub }) {
@@ -192,9 +250,10 @@ function MobileItem({ item, expanded, toggle, onClose }: {
 
 // ——— Navbar principal ———
 export default function Navbar() {
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [expanded, setExpanded]     = useState<string[]>([]);
-  const [scrolled, setScrolled]     = useState(false);
+  const [mobileOpen, setMobileOpen]   = useState(false);
+  const [expanded, setExpanded]       = useState<string[]>([]);
+  const [scrolled, setScrolled]       = useState(false);
+  const [mobileQuery, setMobileQuery] = useState('');
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -262,6 +321,7 @@ export default function Navbar() {
                 <img src={src} alt={alt} className="h-7 w-7 object-contain" />
               </a>
             ))}
+            <TopbarSearch scrolled={scrolled} />
           </div>
         </div>
       </div>
@@ -320,6 +380,27 @@ export default function Navbar() {
         {/* Mobile menu */}
         {mobileOpen && (
           <div className="md:hidden px-4 pb-4 text-sm font-medium border-t border-white/10 space-y-1" style={{ background: 'rgba(0,0,0,0.7)' }}>
+            <form
+              onSubmit={e => {
+                e.preventDefault();
+                const q = mobileQuery.trim();
+                if (!q) return;
+                window.location.href = `${BASE}/buscar?q=${encodeURIComponent(q)}`;
+              }}
+              className="flex items-center gap-2 my-3 rounded-full bg-white/15 ring-1 ring-white/30 px-4 py-2"
+            >
+              <input
+                type="search"
+                value={mobileQuery}
+                onChange={e => setMobileQuery(e.target.value)}
+                placeholder="Buscar..."
+                aria-label="Buscar en el sitio"
+                className="flex-1 bg-transparent text-sm text-white outline-none placeholder-white/60"
+              />
+              <button type="submit" title="Buscar" aria-label="Buscar" className="text-white/90 hover:text-white transition-colors">
+                <SearchIcon />
+              </button>
+            </form>
             {NAV.map(item => (
               <MobileItem key={item.label} item={item} expanded={expanded} toggle={toggleExpanded} onClose={() => { setMobileOpen(false); setExpanded([]); }} />
             ))}
