@@ -5,6 +5,8 @@ import WhatsAppRecibo from "@/components/WhatsAppRecibo";
 import QuienesSomos from "@/components/QuienesSomos";
 import Stats from "@/components/Stats";
 import Services from "@/components/Services";
+import Noticias from "@/components/Noticias";
+import NecesitasAyuda from "@/components/NecesitasAyuda";
 import EnlacesInteres from "@/components/EnlacesInteres";
 import HowItWorks from "@/components/HowItWorks";
 import PaymentSection from "@/components/PaymentSection";
@@ -29,6 +31,8 @@ export default function Home() {
       <QuienesSomos />
       <Stats />
       <Services />
+      <Noticias />
+      <NecesitasAyuda />
       <EnlacesInteres />
       <Footer />
     </BackgroundSlideshow>
