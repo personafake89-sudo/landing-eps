@@ -162,7 +162,7 @@ function DesktopSub({ item }: { item: NavSub }) {
 }
 
 // ——— Dropdown de primer nivel ———
-function DesktopDropdown({ item, scrolled }: { item: NavTop; scrolled: boolean }) {
+function DesktopDropdown({ item }: { item: NavTop }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -173,7 +173,7 @@ function DesktopDropdown({ item, scrolled }: { item: NavTop; scrolled: boolean }
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
-      <button className={`flex items-center gap-1 px-2 py-1.5 transition-colors whitespace-nowrap ${scrolled ? 'hover:text-[#0057a8]' : 'hover:text-blue-200'}`}>
+      <button className="flex items-center gap-1 px-2 py-1.5 transition-colors whitespace-nowrap hover:text-[#0057a8]">
         {item.label}
         <ChevronDown className={`transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
       </button>
@@ -277,17 +277,15 @@ export default function Navbar() {
 
       {/* Top bar */}
       <div
-        className={`border-b text-sm transition-all duration-300 ${scrolled ? 'border-gray-200 text-gray-600' : 'border-white/10 text-white'}`}
-        style={scrolled
-          ? { backdropFilter: 'blur(12px)', background: 'rgba(255,255,255,0.80)' }
-          : { background: 'rgba(0,0,0,0.35)' }}
+        className="border-b border-gray-200 text-sm text-gray-600"
+        style={{ backdropFilter: 'blur(12px)', background: 'rgba(255,255,255,0.92)' }}
       >
         <div className="max-w-6xl mx-auto px-4 py-2 flex items-center justify-between gap-4">
           <a href="https://www.gob.pe" target="_blank" rel="noopener noreferrer"
             title="Portal Único del Estado Peruano - gob.pe"
             className="flex items-center hover:opacity-80 transition-opacity shrink-0">
             <img
-              src={scrolled ? '/images/gobpe-black.svg' : '/images/gobpe-white.svg'}
+              src="/images/gobpe-black.svg"
               alt="gob.pe"
               className="h-5 w-auto"
             />
@@ -321,21 +319,15 @@ export default function Navbar() {
                 <img src={src} alt={alt} className="h-7 w-7 object-contain" />
               </a>
             ))}
-            <TopbarSearch scrolled={scrolled} />
+            <TopbarSearch scrolled={true} />
           </div>
         </div>
       </div>
 
       {/* Nav principal */}
       <nav
-        className={`transition-all duration-300 ${
-          scrolled
-            ? 'border-b border-gray-200 shadow-sm text-gray-700'
-            : 'text-white'
-        }`}
-        style={scrolled
-          ? { backdropFilter: 'blur(12px)', background: 'rgba(255,255,255,0.85)' }
-          : { background: 'rgba(0,0,0,0.40)' }}
+        className={`transition-all duration-300 border-b border-gray-200 text-gray-700 ${scrolled ? 'shadow-md' : 'shadow-sm'}`}
+        style={{ backdropFilter: 'blur(12px)', background: 'rgba(255,255,255,0.92)' }}
       >
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
           <Image
@@ -350,12 +342,12 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-1 text-sm font-medium">
             {NAV.map(item =>
               item.children ? (
-                <DesktopDropdown key={item.label} item={item} scrolled={scrolled} />
+                <DesktopDropdown key={item.label} item={item} />
               ) : (
                 <a key={item.label} href={item.href}
                   target={item.href?.startsWith('http') ? '_blank' : undefined}
                   rel="noopener noreferrer"
-                  className={`px-2 py-1.5 transition-colors whitespace-nowrap ${scrolled ? 'hover:text-[#0057a8]' : 'hover:text-blue-200'}`}>
+                  className="px-2 py-1.5 transition-colors whitespace-nowrap hover:text-[#0057a8]">
                   {item.label}
                 </a>
               )

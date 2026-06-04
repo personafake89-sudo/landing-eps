@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <footer className="relative text-white overflow-hidden">
-      <div className="absolute inset-0" style={{ backdropFilter: 'blur(6px)', background: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.55) 20%, rgba(0,0,0,0.55) 100%)' }} />
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, #0057a8 0%, #013a73 45%, #001e3c 100%)' }} />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
 
