@@ -13,6 +13,7 @@ import PaymentSection from "@/components/PaymentSection";
 import Footer from "@/components/Footer";
 import BackgroundSlideshow from "@/components/BackgroundSlideshow";
 import AvisoModal from "@/components/AvisoModal";
+import FloatingButtons from "@/components/FloatingButtons";
 
 export default function Home() {
   return (
@@ -35,6 +36,7 @@ export default function Home() {
       <NecesitasAyuda />
       <EnlacesInteres />
       <Footer />
+      <FloatingButtons />
     </BackgroundSlideshow>
   );
 }
