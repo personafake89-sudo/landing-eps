@@ -100,8 +100,20 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="relative z-10 border-t border-white/20 py-4 px-4 text-center text-blue-200 text-xs">
-        © {new Date().getFullYear()} E.P.S. EMAQ S.A. — Todos los derechos reservados
+      <div className="relative z-10 border-t border-white/20 py-4 px-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-blue-200 text-xs">
+        <span className="order-2 sm:order-1 text-center sm:text-left">
+          © {new Date().getFullYear()} E.P.S. EMAQ S.A. — Todos los derechos reservados
+        </span>
+        <a
+          href="https://www.gob.pe"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Portal Único del Estado Peruano - gob.pe"
+          className="order-1 sm:order-2 flex items-center gap-2 hover:opacity-80 transition-opacity"
+        >
+          <span className="hidden sm:inline text-blue-200/70">Portal del Estado Peruano</span>
+          <img src="/images/gobpe-white.svg" alt="gob.pe" className="h-6 w-auto" />
+        </a>
       </div>
     </footer>
   );
