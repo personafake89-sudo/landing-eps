@@ -353,12 +353,6 @@ export default function Navbar() {
                 </a>
               )
             )}
-            <Image
-              src="/images/sello.png"
-              alt="Sello EMAQ"
-              width={120} height={120}
-              className="object-contain h-10 w-auto ml-2"
-            />
           </div>
 
           {/* Hamburger */}
