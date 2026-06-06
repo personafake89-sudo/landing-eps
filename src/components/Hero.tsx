@@ -198,11 +198,11 @@ export default function Hero() {
         ))}
       </div>
 
-      {/* Progress bar — debajo del navbar */}
+      {/* Progress bar — top del hero = justo debajo del navbar */}
       <div
         aria-hidden="true"
         className="absolute left-0 right-0 z-20"
-        style={{ top: 110, height: '3px', background: 'rgba(125,211,252,0.25)' }}
+        style={{ top: 0, height: '3px', background: 'rgba(125,211,252,0.25)' }}
       >
         <span
           className="block h-full"

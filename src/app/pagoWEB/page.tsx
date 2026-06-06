@@ -30,6 +30,8 @@ function fmtPeriodo(p: string) {
 export default function PagoWEB() {
   const [paso, setPaso]       = useState<Paso>('buscar');
   const [codigo, setCodigo]   = useState('');
+  const [email, setEmail]     = useState('');
+  const [dni, setDni]         = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError]     = useState('');
   const [cliente, setCliente] = useState<ClienteData | null>(null);
@@ -79,7 +81,7 @@ export default function PagoWEB() {
   }
 
   function reset() {
-    setCodigo(''); setCliente(null); setError(''); setAcepta(false);
+    setCodigo(''); setEmail(''); setDni(''); setCliente(null); setError(''); setAcepta(false);
     setNum(''); setTitular(''); setVenc(''); setCvv(''); setCardErr(''); setResult(null);
     setPaso('buscar');
   }
@@ -121,7 +123,6 @@ export default function PagoWEB() {
             {paso === 'buscar' && (
               <form onSubmit={consultar} className="flex flex-col gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Código de Suministro</label>
                   <input
                     type="number"
                     value={codigo}
@@ -129,11 +130,36 @@ export default function PagoWEB() {
                     placeholder="Ingresar Código de suministro"
                     required
                     className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-[#0057a8] focus:outline-none focus:ring-1 focus:ring-[#0057a8]"
-                    style={{ background: '#EAFAF1' }}
+                    style={{ background: '#EAFAF1', color: '#080909' }}
                   />
                 </div>
 
-                <label className="flex items-start gap-2 cursor-pointer">
+                <div>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    placeholder="Ingresar Correo electrónico"
+                    required
+                    autoComplete="off"
+                    className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-[#0057a8] focus:outline-none focus:ring-1 focus:ring-[#0057a8]"
+                  />
+                </div>
+
+                <div>
+                  <input
+                    type="number"
+                    value={dni}
+                    onChange={e => { if (e.target.value.length <= 8) setDni(e.target.value); }}
+                    placeholder="Ingresar Número de DNI"
+                    required
+                    autoComplete="off"
+                    maxLength={8}
+                    className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-[#0057a8] focus:outline-none focus:ring-1 focus:ring-[#0057a8]"
+                  />
+                </div>
+
+                <label className="flex items-start gap-2 cursor-pointer" style={{ marginTop: 8 }}>
                   <input type="checkbox" required className="mt-0.5 accent-[#0057a8]" />
                   <span className="text-xs text-gray-600">
                     Acepto los <a href="#" className="text-[#0057a8] hover:underline">Términos y Condiciones</a>
@@ -153,9 +179,9 @@ export default function PagoWEB() {
                 </button>
 
                 {/* Visa promo row */}
-                <div className="flex items-center gap-4 mt-2 pt-3 border-t border-gray-100">
+                <div className="flex items-center gap-3 mt-1 pt-3 border-t border-gray-100">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/credit-card.gif" alt="Tarjeta" className="h-12 object-contain" />
+                  <img src="/credit-card.gif" alt="Tarjeta" className="h-14 object-contain" style={{ maxWidth: 100 }} />
                   <p className="text-sm font-semibold text-gray-600 italic">
                     Paga con VISA, en nuestros canales digitales
                   </p>
