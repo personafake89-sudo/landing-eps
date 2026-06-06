@@ -9,7 +9,6 @@ import Noticias from "@/components/Noticias";
 import NecesitasAyuda from "@/components/NecesitasAyuda";
 import EnlacesInteres from "@/components/EnlacesInteres";
 import HowItWorks from "@/components/HowItWorks";
-import PaymentSection from "@/components/PaymentSection";
 import Footer from "@/components/Footer";
 import BackgroundSlideshow from "@/components/BackgroundSlideshow";
 import AvisoModal from "@/components/AvisoModal";
@@ -29,7 +28,6 @@ export default function Home() {
       <WhatsAppRecibo />
       <QuienesSomos />
       <HowItWorks />
-      <PaymentSection />
       <Stats />
       <Services />
       <Noticias />
