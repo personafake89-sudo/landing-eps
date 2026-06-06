@@ -11,7 +11,6 @@ import EnlacesInteres from "@/components/EnlacesInteres";
 import HowItWorks from "@/components/HowItWorks";
 import Footer from "@/components/Footer";
 import BackgroundSlideshow from "@/components/BackgroundSlideshow";
-import AvisoModal from "@/components/AvisoModal";
 import FloatingButtons from "@/components/FloatingButtons";
 
 export default function Home() {
@@ -21,7 +20,6 @@ export default function Home() {
       <h1 className="sr-only">
         EPS EMAQ S.A. – Pago de Recibo de Agua en Línea – Quillabamba, La Convención, Cusco
       </h1>
-      <AvisoModal />
       <Navbar />
       <Hero />
       <QuickMarquee />
