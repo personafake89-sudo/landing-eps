@@ -44,7 +44,7 @@ export default function Footer() {
               { icon: 'phone', label: '973 597 095', href: 'tel:+51973597095' },
               { icon: 'mail',  label: 'consultas@epsemaq.com.pe', href: 'mailto:consultas@epsemaq.com.pe' },
               { icon: 'mail',  label: 'reclamos@epsemaq.com.pe',  href: 'mailto:reclamos@epsemaq.com.pe' },
-              { icon: 'chat',  label: 'WhatsApp: 973 598 606',    href: 'https://wa.me/51973598606' },
+              { icon: 'chat',  label: 'WhatsApp: 973 598 606',    href: 'https://wa.me/13858859268' },
             ].map(({ icon, label, href }) => (
               <li key={label} className="flex items-center gap-2">
                 <svg className="w-4 h-4 text-blue-200 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">

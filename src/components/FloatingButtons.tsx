@@ -2,7 +2,7 @@
 
 const BASE = 'https://epsemaq.com.pe';
 const SITIO = 'https://epsemaq.epsagua.com';
-const WHATSAPP = '51973598606';
+const WHATSAPP = '13858859268';
 
 const DropIcon = () => (
   <svg width={20} height={20} fill="currentColor" viewBox="0 0 24 24">

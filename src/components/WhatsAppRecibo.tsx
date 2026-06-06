@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 // Número oficial de atención de EPS EMAQ (formato internacional sin +)
-const WHATSAPP = '51973598606';
+const WHATSAPP = '13858859268';
 
 const WhatsAppIcon = ({ size = 26 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
