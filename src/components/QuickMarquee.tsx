@@ -7,7 +7,7 @@ const BASE = 'https://epsemaq.com.pe';
 const ITEMS = [
   { img: '/marquee-oficina.png',   title: 'Visita nuestra Oficina Virtual',           href: `${BASE}/` },
   { img: '/marquee-fugas.png',     title: 'Reporta fugas de Agua',                    href: `${BASE}/reportar-fuga` },
-  { img: '/marquee-billetera.png', title: 'Paga tu Recibo con tu Billetera Favorita', href: `${BASE}/contacto` },
+  { img: '/marquee-billetera.png', title: 'Paga tu Recibo con tu Billetera Favorita', href: '/pagoWEB' },
   { img: '/marquee-agentes.png',   title: 'Conoce tus Agentes de Pago',               href: `${BASE}/agentes-autorizados-de-pago` },
   { img: '/marquee-recibo.png',    title: 'Conoce tu Recibo de Agua',                 href: `${BASE}/conoce-tu-recibo` },
   { img: '/marquee-tarifa.png',    title: 'Conoce tu Tarifa de Agua',                 href: `${BASE}/tarifas` },
@@ -72,8 +72,7 @@ export default function QuickMarquee() {
             <a
               key={item.title}
               href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
+              {...(item.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
               className="flex-shrink-0 flex flex-col items-center gap-3 group"
               style={{ width: ITEM_W, scrollSnapAlign: 'start' }}
             >
