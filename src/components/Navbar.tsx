@@ -9,6 +9,7 @@ type NavSub  = { label: string; children: NavLeaf[] };
 type NavTop  = { label: string; href?: string; children?: (NavLeaf | NavSub)[] };
 
 const NAV: NavTop[] = [
+  { label: 'Inicio', href: '/' },
   {
     label: 'La Empresa',
     children: [
@@ -174,7 +175,7 @@ function DesktopDropdown({ item, scrolled }: { item: NavTop; scrolled: boolean }
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
-      <button className="flex items-center gap-1 px-2 py-1.5 transition-colors whitespace-nowrap hover:text-[#0057a8]">
+      <button className="nav-underline flex items-center gap-1 px-2 py-1.5 transition-colors whitespace-nowrap hover:text-[#0057a8]">
         {item.label}
         <ChevronDown className={`transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
       </button>
@@ -330,7 +331,7 @@ export default function Navbar() {
             src="/images/logo.png"
             alt="E.P.S. EMAQ S.A."
             width={160} height={48}
-            className="object-contain h-12 w-auto"
+            className="object-contain h-16 w-auto"
             priority
           />
 
@@ -343,7 +344,7 @@ export default function Navbar() {
                 <a key={item.label} href={item.href}
                   target={item.href?.startsWith('http') ? '_blank' : undefined}
                   rel="noopener noreferrer"
-                  className="px-2 py-1.5 transition-colors whitespace-nowrap hover:text-[#0057a8]">
+                  className="nav-underline px-2 py-1.5 transition-colors whitespace-nowrap hover:text-[#0057a8]">
                   {item.label}
                 </a>
               )
