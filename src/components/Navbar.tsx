@@ -320,6 +320,7 @@ export default function Navbar() {
                 <img src={src} alt={alt} className="h-7 w-7 object-contain" />
               </a>
             ))}
+            <span className="w-px h-5 bg-gray-300 mx-1" />
             <TopbarSearch scrolled={scrolled} />
           </div>
         </div>
