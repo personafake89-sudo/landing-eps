@@ -238,45 +238,46 @@ export default function Hero() {
         </svg>
       </button>
 
-      {/* Dots */}
-      <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-20 flex gap-2.5 items-center">
-        {SLIDES.map((s, i) => (
-          <button
-            key={i}
-            aria-label={`Slide ${i + 1}`}
-            onClick={() => goTo(i)}
-            className="relative rounded-full overflow-hidden transition-all duration-300"
-            style={{
-              width: i === current ? 36 : 10,
-              height: 10,
-              background: 'rgba(0,0,0,0.18)',
-              padding: 0,
-              flexShrink: 0,
-            }}
-          >
-            <span
-              className="absolute inset-0 rounded-full"
+      {/* Dots + scroll hint — centrados en la base */}
+      <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-3">
+        <div className="flex gap-2.5 items-center">
+          {SLIDES.map((s, i) => (
+            <button
+              key={i}
+              aria-label={`Slide ${i + 1}`}
+              onClick={() => goTo(i)}
+              className="relative rounded-full overflow-hidden"
               style={{
-                width: i === current ? `${progress}%` : '0%',
-                background: s.btnColor,
+                width: 14,
+                height: 14,
+                background: 'rgba(0,0,0,0.18)',
+                padding: 0,
+                flexShrink: 0,
+                outline: i === current ? `2px solid ${s.btnColor}` : '2px solid transparent',
+                outlineOffset: 2,
+                transition: 'outline-color 0.3s ease',
               }}
-            />
-          </button>
-        ))}
-      </div>
+            >
+              <span
+                className="absolute inset-0 rounded-full"
+                style={{
+                  width: i === current ? `${progress}%` : '0%',
+                  background: s.btnColor,
+                }}
+              />
+            </button>
+          ))}
+        </div>
 
-      {/* Scroll hint */}
-      <div
-        className="absolute bottom-8 right-8 z-20 hidden md:flex items-center"
-        style={{ color: 'rgba(0,0,0,0.28)' }}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
-          fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"
-          style={{ animation: 'bounceDown 2s ease-in-out infinite' }}
-        >
-          <path d="m6 9 6 6 6-6" />
-        </svg>
+        <div style={{ color: 'rgba(0,0,0,0.28)' }}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"
+            style={{ animation: 'bounceDown 2s ease-in-out infinite' }}
+          >
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+        </div>
       </div>
     </section>
   );
