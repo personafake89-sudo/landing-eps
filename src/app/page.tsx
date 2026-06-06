@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import AccesosRapidos from "@/components/AccesosRapidos";
+import QuickMarquee from "@/components/QuickMarquee";
 import WhatsAppRecibo from "@/components/WhatsAppRecibo";
 import QuienesSomos from "@/components/QuienesSomos";
 import Stats from "@/components/Stats";
@@ -25,11 +25,11 @@ export default function Home() {
       <AvisoModal />
       <Navbar />
       <Hero />
-      <AccesosRapidos />
+      <QuickMarquee />
       <WhatsAppRecibo />
+      <QuienesSomos />
       <HowItWorks />
       <PaymentSection />
-      <QuienesSomos />
       <Stats />
       <Services />
       <Noticias />
