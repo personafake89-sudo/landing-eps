@@ -25,6 +25,11 @@
   50%       { transform: translateY(7px); opacity: 0.85; }
 }
 
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
 /* Forzar siempre modo claro */
 :root {
   color-scheme: light;

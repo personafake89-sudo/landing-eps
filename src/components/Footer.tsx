@@ -1,7 +1,15 @@
 export default function Footer() {
   return (
-    <footer className="relative text-white overflow-hidden">
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, #0057a8 0%, #013a73 45%, #001e3c 100%)' }} />
+    <footer
+      className="relative text-white overflow-hidden"
+      style={{
+        backgroundColor: 'rgb(6, 27, 60)',
+        backgroundImage: 'url(/footer-bg.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
+      <div className="absolute inset-0" style={{ background: 'rgba(6, 27, 60, 0.70)' }} />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
 
@@ -23,7 +31,7 @@ export default function Footer() {
               <circle cx="12" cy="12" r="10" strokeWidth={2} />
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6l4 2" />
             </svg>
-            <span>Lunes a Viernes: 8:00 - 16:00</span>
+            <span>Lunes a Viernes: 07:30 - 16:00</span>
           </div>
         </div>
 
@@ -91,7 +99,7 @@ export default function Footer() {
           <div>
             <a href="https://epsemaq.com.pe" target="_blank" rel="noopener noreferrer">
               <img
-                src="/images/libro-reclamaciones.png"
+                src="/libro-reclamaciones.png"
                 alt="Libro de Reclamaciones"
                 className="h-20 w-auto object-contain hover:scale-105 transition-transform"
               />
