@@ -198,17 +198,17 @@ export default function Hero() {
         ))}
       </div>
 
-      {/* Progress bar */}
+      {/* Progress bar — debajo del navbar */}
       <div
         aria-hidden="true"
-        className="absolute bottom-0 left-0 right-0 z-20"
-        style={{ height: '3px', background: 'rgba(0,0,0,0.10)' }}
+        className="absolute left-0 right-0 z-20"
+        style={{ top: 110, height: '3px', background: 'rgba(125,211,252,0.25)' }}
       >
         <span
           className="block h-full"
           style={{
             width: `${progress}%`,
-            background: `linear-gradient(90deg, ${slide.btnColor}99, ${slide.btnColor})`,
+            background: 'linear-gradient(90deg, #7dd3fc, #0095eb)',
             borderRadius: '0 3px 3px 0',
           }}
         />
@@ -241,31 +241,20 @@ export default function Hero() {
       {/* Dots + scroll hint — centrados en la base */}
       <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-3">
         <div className="flex gap-2.5 items-center">
-          {SLIDES.map((s, i) => (
+          {SLIDES.map((_, i) => (
             <button
               key={i}
               aria-label={`Slide ${i + 1}`}
               onClick={() => goTo(i)}
-              className="relative rounded-full overflow-hidden"
+              className="rounded-full transition-all duration-300"
               style={{
-                width: 14,
-                height: 14,
-                background: 'rgba(0,0,0,0.18)',
+                width: 12,
+                height: 12,
+                background: i === current ? '#7dd3fc' : 'rgba(0,0,0,0.20)',
                 padding: 0,
                 flexShrink: 0,
-                outline: i === current ? `2px solid ${s.btnColor}` : '2px solid transparent',
-                outlineOffset: 2,
-                transition: 'outline-color 0.3s ease',
               }}
-            >
-              <span
-                className="absolute inset-0 rounded-full"
-                style={{
-                  width: i === current ? `${progress}%` : '0%',
-                  background: s.btnColor,
-                }}
-              />
-            </button>
+            />
           ))}
         </div>
 
