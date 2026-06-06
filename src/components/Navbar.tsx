@@ -162,7 +162,7 @@ function DesktopSub({ item }: { item: NavSub }) {
 }
 
 // ——— Dropdown de primer nivel ———
-function DesktopDropdown({ item }: { item: NavTop }) {
+function DesktopDropdown({ item, scrolled }: { item: NavTop; scrolled: boolean }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -173,7 +173,7 @@ function DesktopDropdown({ item }: { item: NavTop }) {
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
-      <button className="flex items-center gap-1 px-2 py-1.5 transition-colors whitespace-nowrap hover:text-[#0057a8]">
+      <button className={`flex items-center gap-1 px-2 py-1.5 transition-colors whitespace-nowrap ${scrolled ? 'hover:text-[#0057a8]' : 'text-white/90 hover:text-white'}`}>
         {item.label}
         <ChevronDown className={`transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
       </button>
@@ -277,15 +277,21 @@ export default function Navbar() {
 
       {/* Top bar */}
       <div
-        className="border-b border-gray-200 text-sm text-gray-600"
-        style={{ backdropFilter: 'blur(12px)', background: 'rgba(255,255,255,0.92)' }}
+        className="text-sm"
+        style={{
+          background: scrolled ? 'rgba(255,255,255,0.95)' : 'rgba(0,0,0,0.30)',
+          backdropFilter: scrolled ? 'blur(12px)' : 'blur(4px)',
+          color: scrolled ? '#4b5563' : 'rgba(255,255,255,0.90)',
+          borderBottom: scrolled ? '1px solid #e5e7eb' : '1px solid rgba(255,255,255,0.15)',
+          transition: 'all 0.3s ease',
+        }}
       >
         <div className="max-w-6xl mx-auto px-4 py-2 flex items-center justify-between gap-4">
           <a href="https://www.gob.pe" target="_blank" rel="noopener noreferrer"
             title="Portal Único del Estado Peruano - gob.pe"
             className="flex items-center hover:opacity-80 transition-opacity shrink-0">
             <img
-              src="/images/gobpe-black.svg"
+              src={scrolled ? '/images/gobpe-rojo.svg' : '/images/gobpe-white.svg'}
               alt="gob.pe"
               className="h-5 w-auto"
             />
@@ -319,15 +325,22 @@ export default function Navbar() {
                 <img src={src} alt={alt} className="h-7 w-7 object-contain" />
               </a>
             ))}
-            <TopbarSearch scrolled={true} />
+            <TopbarSearch scrolled={scrolled} />
           </div>
         </div>
       </div>
 
       {/* Nav principal */}
       <nav
-        className={`transition-all duration-300 border-b border-gray-200 text-gray-700 ${scrolled ? 'shadow-md' : 'shadow-sm'}`}
-        style={{ backdropFilter: 'blur(12px)', background: 'rgba(255,255,255,0.92)' }}
+        className="transition-all duration-300"
+        style={{
+          background: scrolled ? 'rgba(255,255,255,0.95)' : 'transparent',
+          backdropFilter: scrolled ? 'blur(12px)' : 'none',
+          color: scrolled ? '#374151' : 'white',
+          borderBottom: scrolled ? '1px solid #e5e7eb' : '1px solid rgba(255,255,255,0.15)',
+          boxShadow: scrolled ? '0 4px 20px rgba(0,0,0,0.10)' : 'none',
+          transition: 'all 0.3s ease',
+        }}
       >
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
           <Image
@@ -342,12 +355,12 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-1 text-sm font-medium">
             {NAV.map(item =>
               item.children ? (
-                <DesktopDropdown key={item.label} item={item} />
+                <DesktopDropdown key={item.label} item={item} scrolled={scrolled} />
               ) : (
                 <a key={item.label} href={item.href}
                   target={item.href?.startsWith('http') ? '_blank' : undefined}
                   rel="noopener noreferrer"
-                  className="px-2 py-1.5 transition-colors whitespace-nowrap hover:text-[#0057a8]">
+                  className={`px-2 py-1.5 transition-colors whitespace-nowrap ${scrolled ? 'hover:text-[#0057a8]' : 'text-white/90 hover:text-white'}`}>
                   {item.label}
                 </a>
               )
@@ -361,7 +374,7 @@ export default function Navbar() {
           </div>
 
           {/* Hamburger */}
-          <button className="md:hidden" onClick={() => setMobileOpen(!mobileOpen)}>
+          <button className={`md:hidden ${scrolled ? 'text-gray-700' : 'text-white'}`} onClick={() => setMobileOpen(!mobileOpen)}>
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                 d={mobileOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
