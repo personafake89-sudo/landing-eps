@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function AppPromo() {
   return (
     <section className="py-[5rem] px-4 bg-white">
@@ -11,9 +13,11 @@ export default function AppPromo() {
           <p className="text-[#64748b] mt-4 text-sm">Accede a tu cuenta, paga tu recibo y recibe alertas desde tu celular.</p>
         </div>
         <div className="flex justify-center">
-          <img
+          <Image
             src="/app-promo.png"
             alt="Instala nuestra app - EPS EMAQ S.A. Rápida, fácil y segura"
+            width={1024}
+            height={1024}
             className="w-full max-w-2xl rounded-2xl object-contain"
             style={{ boxShadow: '0 10px 30px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.06)', border: '1px solid #f1f5f9' }}
           />

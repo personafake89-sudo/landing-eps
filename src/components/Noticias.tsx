@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const BASE = 'https://epsemaq.com.pe';
 
 type Noticia = {
@@ -73,10 +75,12 @@ export default function Noticias() {
               className="group flex flex-col rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all"
             >
               <div className="relative h-48 overflow-hidden">
-                <img
+                <Image
                   src={n.img}
                   alt={n.titulo}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  fill
+                  sizes="(min-width: 1024px) 33vw, 100vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <span className={`absolute top-3 left-3 text-white text-xs font-semibold px-3 py-1 rounded-full ${badgeColor[n.categoria] ?? 'bg-[#0057a8]'}`}>
                   {n.categoria}

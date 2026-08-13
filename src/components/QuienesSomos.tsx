@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const BASE = 'https://epsemaq.com.pe';
 
 export default function QuienesSomos() {
@@ -12,12 +14,12 @@ export default function QuienesSomos() {
               className="relative overflow-hidden rounded-2xl shadow-xl"
               style={{ aspectRatio: '4/3' }}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src="/quienes-somos.jpg"
                 alt="Quiénes Somos"
-                loading="lazy"
-                className="w-full h-full object-cover"
+                fill
+                sizes="(min-width: 1024px) 640px, 100vw"
+                className="object-cover"
                 style={{ objectPosition: '55% 2%' }}
               />
             </div>

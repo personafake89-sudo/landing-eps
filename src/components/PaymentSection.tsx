@@ -146,10 +146,12 @@ export default function PaymentSection() {
           </div>
           <div className="flex gap-2 flex-wrap items-center">
             <div className="bg-white rounded-lg px-3 py-2 shadow-sm border">
-              <img src="https://static-content.vnforapps.com/v2/img/bottom/visa.png" alt="Visa" className="h-5 object-contain" />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img loading="lazy" src="https://static-content.vnforapps.com/v2/img/bottom/visa.png" alt="Visa" className="h-5 object-contain" />
             </div>
             <div className="bg-white rounded-lg px-3 py-2 shadow-sm border">
-              <img src="https://static-content.vnforapps.com/v2/img/bottom/mc.png" alt="Mastercard" className="h-5 object-contain" />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img loading="lazy" src="https://static-content.vnforapps.com/v2/img/bottom/mc.png" alt="Mastercard" className="h-5 object-contain" />
             </div>
           </div>
         </div>
@@ -414,12 +416,18 @@ export default function PaymentSection() {
 
                 {/* Logos de seguridad */}
                 <div className="flex items-center justify-center gap-2 flex-wrap">
-                  <img src="https://static-content.vnforapps.com/v2/img/pci.png" alt="PCI DSS" className="h-5 object-contain" />
-                  <img src="https://static-content.vnforapps.com/v2/img/bottom/visa.png" alt="Visa" className="h-5 object-contain" />
-                  <img src="https://static-content.vnforapps.com/v2/img/bottom/mc.png" alt="Mastercard" className="h-5 object-contain" />
-                  <img src="https://static-content.vnforapps.com/v2/img/bottom/dc.png" alt="Diners Club" className="h-5 object-contain" />
-                  <img src="https://static-content.vnforapps.com/v2/img/bottom/amex.svg" alt="American Express" className="h-5 object-contain" />
-                  <img src="https://static-content.vnforapps.com/v2/img/bottom/unionpay.svg" alt="UnionPay" className="h-5 object-contain" />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img loading="lazy" src="https://static-content.vnforapps.com/v2/img/pci.png" alt="PCI DSS" className="h-5 object-contain" />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img loading="lazy" src="https://static-content.vnforapps.com/v2/img/bottom/visa.png" alt="Visa" className="h-5 object-contain" />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img loading="lazy" src="https://static-content.vnforapps.com/v2/img/bottom/mc.png" alt="Mastercard" className="h-5 object-contain" />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img loading="lazy" src="https://static-content.vnforapps.com/v2/img/bottom/dc.png" alt="Diners Club" className="h-5 object-contain" />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img loading="lazy" src="https://static-content.vnforapps.com/v2/img/bottom/amex.svg" alt="American Express" className="h-5 object-contain" />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img loading="lazy" src="https://static-content.vnforapps.com/v2/img/bottom/unionpay.svg" alt="UnionPay" className="h-5 object-contain" />
                 </div>
 
                 {cardError && (

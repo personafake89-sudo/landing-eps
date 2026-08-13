@@ -1,5 +1,6 @@
 'use client';
 
+import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 const SLIDES = [
@@ -179,12 +180,12 @@ export default function Hero() {
               </div>
 
               <div className="flex-1 flex items-end justify-center md:justify-end">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={s.img}
                   alt={s.imgAlt}
-                  draggable={false}
-                  loading={i === 0 ? 'eager' : 'lazy'}
+                  width={480}
+                  height={s.isPhoto ? 360 : 720}
+                  priority={i === 0}
                   className={
                     s.isPhoto
                       ? 'w-full max-w-[480px] rounded-2xl object-cover shadow-2xl'

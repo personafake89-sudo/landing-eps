@@ -286,6 +286,7 @@ export default function Navbar() {
           <a href="https://www.gob.pe" target="_blank" rel="noopener noreferrer"
             title="Portal Único del Estado Peruano - gob.pe"
             className="flex items-center hover:opacity-80 transition-opacity shrink-0">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/gobpe-rojo.svg"
               alt="gob.pe"
@@ -312,7 +313,7 @@ export default function Navbar() {
               { src: '/images/icon-instagram.png', alt: 'Instagram', href: 'https://www.instagram.com/eps_emaq_sa' },
             ].map(({ src, alt, href }) => (
               <a key={alt} href={href} target="_blank" rel="noopener noreferrer" title={alt} className="hover:scale-110 transition-transform">
-                <img src={src} alt={alt} className="h-7 w-7 object-contain" />
+                <Image src={src} alt={alt} width={64} height={64} className="h-7 w-7 object-contain" />
               </a>
             ))}
             <span className="w-px h-5 bg-gray-300 mx-1" />
@@ -402,7 +403,7 @@ export default function Navbar() {
                   { src: '/images/icon-instagram.png', alt: 'Instagram', href: 'https://www.instagram.com/eps_emaq_sa' },
                 ].map(({ src, alt, href }) => (
                   <a key={alt} href={href} target="_blank" rel="noopener noreferrer" title={alt} className="hover:scale-110 transition-transform">
-                    <img src={src} alt={alt} className="h-8 w-8 object-contain" />
+                    <Image src={src} alt={alt} width={64} height={64} className="h-8 w-8 object-contain" />
                   </a>
                 ))}
               </div>

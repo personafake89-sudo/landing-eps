@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Footer() {
   return (
     <footer
@@ -92,15 +94,17 @@ export default function Footer() {
             ].map(({ src, alt, href }) => (
               <a key={alt} href={href} target="_blank" rel="noopener noreferrer" title={alt}
                 className="hover:scale-110 transition-transform">
-                <img src={src} alt={alt} className="h-9 w-9 object-contain" />
+                <Image src={src} alt={alt} width={64} height={64} className="h-9 w-9 object-contain" />
               </a>
             ))}
           </div>
           <div>
             <a href="https://epsemaq.com.pe" target="_blank" rel="noopener noreferrer">
-              <img
+              <Image
                 src="/libro-reclamaciones.png"
                 alt="Libro de Reclamaciones"
+                width={300}
+                height={117}
                 className="h-20 w-auto object-contain hover:scale-105 transition-transform"
               />
             </a>

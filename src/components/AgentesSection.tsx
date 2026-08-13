@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function AgentesSection() {
   return (
     <section className="py-[5rem] px-4 bg-white">
@@ -5,10 +7,11 @@ export default function AgentesSection() {
 
         {/* Image */}
         <div className="flex-1 flex justify-center">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src="/agentes-pago.png"
             alt="Agentes Autorizados de Pago"
+            width={1024}
+            height={1536}
             className="w-full max-w-[440px] object-contain drop-shadow-xl"
           />
         </div>
