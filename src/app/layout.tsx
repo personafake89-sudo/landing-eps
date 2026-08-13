@@ -21,11 +21,15 @@ const BASE_URL = "https://epsemaq.epsagua.com";
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "EPS EMAQ S.A. - Quillabamba",
+    default: "EPS EMAQ S.A. | Pago de Recibo de Agua en Línea – Quillabamba",
     template: "%s | EPS EMAQ S.A.",
   },
   description:
     "Consulte y pague su recibo de agua potable de EPS EMAQ en Quillabamba, La Convención, Cusco. Pago rápido, seguro y sin filas desde cualquier dispositivo.",
+  applicationName: "EPS EMAQ S.A.",
+  category: "Servicios públicos de agua y alcantarillado",
+  themeColor: "#0057a8",
+  colorScheme: "light",
   keywords: [
     "EPS EMAQ",
     "pago recibo agua Quillabamba",
@@ -37,7 +41,13 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "EPS EMAQ S.A." }],
   robots: { index: true, follow: true },
-  alternates: { canonical: BASE_URL },
+  alternates: {
+    canonical: BASE_URL,
+    languages: {
+      "es-PE": "/",
+      "x-default": "/",
+    },
+  },
   openGraph: {
     type: "website",
     url: BASE_URL,
@@ -46,6 +56,7 @@ export const metadata: Metadata = {
     description:
       "Consulte y pague su recibo de agua potable de EPS EMAQ en Quillabamba, La Convención, Cusco. Pago rápido, seguro y sin filas.",
     locale: "es_PE",
+    alternateLocale: ["es_419", "es"],
     images: [
       {
         url: "/og-image.png",
@@ -66,12 +77,16 @@ export const metadata: Metadata = {
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@type": ["LocalBusiness", "Organization"],
+  "@id": "https://epsemaq.epsagua.com",
   name: "EPS EMAQ S.A.",
   alternateName: "Empresa Prestadora de Servicios de Saneamiento EMAQ",
   url: "https://epsemaq.epsagua.com",
   logo: `${BASE_URL}/images/logo.png`,
   image: `${BASE_URL}/images/slide-01.jpg`,
+  priceRange: "Pago de recibo de agua en línea",
+  currenciesAccepted: "PEN",
+  paymentAccepted: "Tarjeta de crédito, débito, Yape y banca móvil",
   description:
     "EPS EMAQ S.A. brinda servicios de agua potable y alcantarillado en Quillabamba, La Convención, Cusco.",
   address: {
@@ -89,6 +104,18 @@ const jsonLd = {
   telephone: "+51973598606",
   email: "consultas@epsemaq.com.pe",
   openingHours: "Mo-Fr 08:00-16:00",
+  areaServed: [
+    {
+      "@type": "Place",
+      name: "Quillabamba",
+      address: { "@type": "PostalAddress", addressLocality: "Quillabamba", addressRegion: "Cusco", addressCountry: "PE" },
+    },
+    {
+      "@type": "Place",
+      name: "La Convención",
+      address: { "@type": "PostalAddress", addressLocality: "La Convención", addressRegion: "Cusco", addressCountry: "PE" },
+    },
+  ],
   sameAs: [
     "https://www.facebook.com/p/EPS-EMAQ-Quillabamba-100063889960218",
     "https://www.instagram.com/eps_emaq_sa",
@@ -123,7 +150,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`h-full antialiased ${poppins.variable} ${inter.variable}`} style={{ colorScheme: 'light' }}>
+    <html lang="es-PE" className={`h-full antialiased ${poppins.variable} ${inter.variable}`} style={{ colorScheme: 'light' }}>
       <head>
         <meta name="geo.region" content="PE-CUS" />
         <meta name="geo.placename" content="Quillabamba, La Convención, Cusco, Perú" />
