@@ -1,6 +1,18 @@
 {
   "redirects": [
     {
+      "source": "/",
+      "has": [{ "type": "host", "value": "www.epsagua.com" }],
+      "destination": "https://epsemaq.epsagua.com/",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "epsagua.com" }],
+      "destination": "https://epsemaq.epsagua.com/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "www.epsagua.com" }],
       "destination": "https://epsemaq.epsagua.com/:path*",
