@@ -196502,14 +196502,14 @@
     "email": "jamescmolina@gmail.com",
     "direccion": "Sec. 002, Calle 734, Nro. E-3, Mza. 0031, Lote 110",
     "tiene_deuda": true,
-    "deuda_total": 12.1,
+    "deuda_total": 5,
     "meses_pendientes": 1,
     "detalle_meses": [
       "2026-08"
     ],
     "ultimo_recibo": {
       "periodo": "2026-08",
-      "monto": 12.1,
+      "monto": 5,
       "estado": "002"
     }
   },
