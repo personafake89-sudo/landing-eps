@@ -65,7 +65,7 @@ export default function PagoWEBClient() {
     if (n.length < 16)      { setCardErr('Número de tarjeta inválido'); return; }
     if (!titular.trim())    { setCardErr('Ingrese el nombre del titular'); return; }
     if (venc.length < 5)    { setCardErr('Fecha de vencimiento inválida'); return; }
-    if (cvv.length < 3)     { setCardErr('CVV inválido'); return; }
+    if (cvv.length < (/^(34|37)/.test(num.replace(/\s/g, '')) ? 4 : 3)) { setCardErr('CVV inválido'); return; }
     setPagando(true);
     try {
       const res = await fetch('/api/pagar', {
@@ -295,7 +295,7 @@ export default function PagoWEBClient() {
                   </div>
                   <div className="w-24">
                     <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">CVV</label>
-                    <input value={cvv} onChange={e => setCvv(e.target.value.replace(/\D/g,'').slice(0,4))} placeholder="•••" maxLength={4} type="password" required
+                    <input value={cvv} onChange={e => setCvv(e.target.value.replace(/\D/g,'').slice(0, /^(34|37)/.test(num.replace(/\s/g,'')) ? 4 : 3))} placeholder="•••" maxLength={/^(34|37)/.test(num.replace(/\s/g,'')) ? 4 : 3} type="password" required
                       className="w-full border-2 border-gray-200 rounded-lg px-4 py-3 text-sm focus:border-[#0057a8] focus:outline-none" />
                   </div>
                 </div>

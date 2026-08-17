@@ -31,6 +31,10 @@ function maskCard(num: string) {
   return num.replace(/\D/g, '').replace(/(.{4})/g, '$1 ').trim().slice(0, 19);
 }
 
+function esAmex(num: string) {
+  return /^(34|37)/.test(num.replace(/\D/g, ''));
+}
+
 export default function PaymentSection() {
   const [paso, setPaso]           = useState<PasoFormulario>('buscar');
   const [codigo, setCodigo]       = useState('');
@@ -78,7 +82,8 @@ export default function PaymentSection() {
     if (num.length < 16)    { setCardError('Número de tarjeta inválido'); return; }
     if (!titular.trim())    { setCardError('Ingrese el nombre del titular'); return; }
     if (vencimiento.length < 5) { setCardError('Fecha de vencimiento inválida'); return; }
-    if (cvv.length < 3)    { setCardError('CVV inválido'); return; }
+    const cvvMin = esAmex(numTarjeta) ? 4 : 3;
+    if (cvv.length < cvvMin) { setCardError('CVV inválido'); return; }
 
     setPagando(true);
     try {
@@ -404,9 +409,9 @@ export default function PaymentSection() {
                     <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">CVV</label>
                     <input
                       value={cvv}
-                      onChange={e => setCvv(e.target.value.replace(/\D/g, '').slice(0, 4))}
+                      onChange={e => setCvv(e.target.value.replace(/\D/g, '').slice(0, esAmex(numTarjeta) ? 4 : 3))}
                       placeholder="•••"
-                      maxLength={4}
+                      maxLength={esAmex(numTarjeta) ? 4 : 3}
                       type="password"
                       className="w-full border-2 border-gray-200 rounded-lg px-4 py-3 text-sm focus:border-[#0057a8] focus:outline-none transition-colors"
                       required
