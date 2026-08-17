@@ -154,7 +154,7 @@ export default function Hero() {
                 >
                   {s.eyebrow}
                 </span>
-                <h1
+                <h2
                   className="font-extrabold leading-[1.08] tracking-[-0.025em] text-[#1e293b]"
                   style={{
                     fontFamily: 'Poppins, Inter, sans-serif',
@@ -162,7 +162,7 @@ export default function Hero() {
                   }}
                 >
                   {s.title}
-                </h1>
+                </h2>
                 {s.btn && (
                   <a
                     href={s.btn.href}

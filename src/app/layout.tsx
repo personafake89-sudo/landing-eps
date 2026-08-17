@@ -144,6 +144,92 @@ const jsonLd = {
   },
 };
 
+const jsonLdWebSite = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${BASE_URL}/#website`,
+  name: "EPS EMAQ S.A. | Pago de Recibo de Agua en Línea",
+  url: BASE_URL,
+  publisher: {
+    "@id": "https://epsemaq.epsagua.com",
+  },
+  inLanguage: "es-PE",
+};
+
+const jsonLdFaq = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "¿Cómo consulto mi deuda de agua en EPS EMAQ?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Ingresa tu número de suministro en la sección de consulta de la página y el sistema mostrará al instante el monto de tu deuda y el detalle de tus recibos pendientes.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "¿Cómo pago mi recibo de agua en línea?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Consulta tu deuda con tu número de suministro, acepta los términos y condiciones, y paga con tarjeta de débito, crédito o billetera digital. Recibirás tu comprobante por correo.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "¿Qué tarjetas acepta EPS EMAQ para el pago en línea?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Aceptamos tarjetas de débito y crédito VISA y Mastercard, así como billeteras digitales como Yape y banca móvil.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "¿Dónde encuentro mi número de suministro?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "El número de suministro aparece en la parte superior de tu recibo de agua potable de EPS EMAQ, junto a tus datos de cliente.",
+      },
+    },
+  ],
+};
+
+const jsonLdHowTo = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "Cómo pagar tu recibo de agua de EPS EMAQ en línea",
+  description:
+    "Pasos para consultar tu deuda y pagar tu recibo de agua potable de EPS EMAQ desde cualquier dispositivo.",
+  totalTime: "PT5M",
+  step: [
+    {
+      "@type": "HowToStep",
+      position: 1,
+      name: "Ingresa tu N° de suministro",
+      text: "Encuéntralo en la parte superior de tu último recibo físico.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 2,
+      name: "Consulta tu deuda",
+      text: "Revisa el monto a pagar y los detalles de tu consumo del mes.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 3,
+      name: "Acepta los términos",
+      text: "Lee y acepta los términos y condiciones del servicio de pago en línea.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 4,
+      name: "Paga con tarjeta o billetera",
+      text: "Ingresa los datos de tu tarjeta VISA o escanea el QR y confirma el pago.",
+    },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -159,6 +245,18 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebSite) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdHowTo) }}
         />
       </head>
       <body className="min-h-full flex flex-col text-[#1e293b]">

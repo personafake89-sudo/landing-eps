@@ -42,5 +42,32 @@ export const metadata: Metadata = {
 };
 
 export default function PagoWEBPage() {
-  return <PagoWEBClient />;
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "EPS EMAQ S.A.",
+        item: "https://epsemaq.epsagua.com/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Pago de recibo de agua en línea",
+        item: "https://epsemaq.epsagua.com/pagoWEB",
+      },
+    ],
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <PagoWEBClient />
+    </>
+  );
 }
