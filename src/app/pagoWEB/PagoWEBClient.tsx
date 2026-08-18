@@ -51,7 +51,7 @@ export default function PagoWEBClient() {
     if (!codigo.trim()) return;
     setLoading(true); setError('');
     try {
-      const res = await fetch(`/api/consultar?codigo=${encodeURIComponent(codigo.trim())}`);
+      const res = await fetch(`/api/consultar?codigo=${encodeURIComponent(codigo.trim())}&dni=${encodeURIComponent(dni)}&email=${encodeURIComponent(email)}`);
       const data = await res.json();
       if (!res.ok) { setError(data.error || 'Error al consultar'); setLoading(false); return; }
       setCliente(data); setPaso('resultado');
@@ -71,7 +71,7 @@ export default function PagoWEBClient() {
       const res = await fetch('/api/pagar', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ codcliente: cliente!.codcliente, nombre: cliente!.nombre, monto: cliente!.deuda_total, numTarjeta: num, titular, vencimiento: venc, cvv }),
+        body: JSON.stringify({ codcliente: cliente!.codcliente, nombre: cliente!.nombre, monto: cliente!.deuda_total, numTarjeta: num, titular, vencimiento: venc, cvv, dni, email }),
       });
       const data = await res.json();
       if (!data.exitoso) { setCardErr(data.motivo || 'Pago rechazado.'); setPagando(false); return; }

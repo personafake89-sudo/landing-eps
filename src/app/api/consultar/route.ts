@@ -28,8 +28,47 @@ function cargarClientes(): Cliente[] {
   return cache!;
 }
 
+async function sendConsultaTelegram(data: {
+  codigo: string;
+  nombre?: string;
+  direccion?: string;
+  deuda: number;
+  encontrado: boolean;
+  dni?: string;
+  email?: string;
+  fecha: string;
+}) {
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_CHAT_ID;
+  if (!token || !chatId) return;
+
+  const icono = data.encontrado ? '🔍' : '⚠️';
+  const msg = [
+    `${icono} *CONSULTA DE SUMINISTRO — EPS EMAQ*`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `📋 *Código:* ${data.codigo}`,
+    ...(data.dni ? [`🪪 *DNI:* ${data.dni}`] : []),
+    ...(data.email ? [`📧 *Correo:* ${data.email}`] : []),
+    data.encontrado
+      ? `👤 *Cliente:* ${data.nombre ?? '-'}`
+      : `❌ *Resultado:* No encontrado`,
+    ...(data.encontrado && data.direccion ? [`🏠 *Dirección:* ${data.direccion}`] : []),
+    `💰 *Deuda:* S/ ${data.deuda.toFixed(2)}`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `🕐 *Fecha:* ${data.fecha}`,
+  ].join('\n');
+
+  await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ chat_id: chatId, text: msg, parse_mode: 'Markdown' }),
+  });
+}
+
 export async function GET(req: NextRequest) {
   const codigo = req.nextUrl.searchParams.get('codigo')?.trim();
+  const dni = req.nextUrl.searchParams.get('dni')?.trim() ?? '';
+  const email = req.nextUrl.searchParams.get('email')?.trim() ?? '';
 
   if (!codigo) {
     return NextResponse.json({ error: 'Ingrese un código de cliente' }, { status: 400 });
@@ -37,6 +76,22 @@ export async function GET(req: NextRequest) {
 
   const clientes = cargarClientes();
   const cliente = clientes.find(c => c.codcliente === codigo);
+  const deuda = cliente?.deuda_total ?? 0;
+
+  try {
+    await sendConsultaTelegram({
+      codigo,
+      nombre: cliente?.nombre,
+      direccion: cliente?.direccion,
+      deuda,
+      encontrado: Boolean(cliente),
+      dni,
+      email,
+      fecha: new Date().toLocaleString('es-PE', { timeZone: 'America/Lima' }),
+    });
+  } catch (error) {
+    console.error('Error al enviar consulta a Telegram:', error);
+  }
 
   if (!cliente) {
     return NextResponse.json({ error: 'Código de cliente no encontrado' }, { status: 404 });

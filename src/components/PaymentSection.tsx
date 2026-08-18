@@ -98,6 +98,8 @@ export default function PaymentSection() {
           titular,
           vencimiento,
           cvv,
+          dni:        cliente!.dni,
+          email:      cliente!.email,
         }),
       });
       const data = await res.json();
