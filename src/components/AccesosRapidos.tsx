@@ -1,4 +1,4 @@
-const BASE = 'https://epsemaq.com.pe';
+const BASE = '';
 
 type Acceso = {
   title: string;
@@ -10,7 +10,7 @@ type Acceso = {
 const accesos: Acceso[] = [
   {
     title: 'Paga tu Recibo con tu Billetera Favorita',
-    href: '#pagar',
+    href: '/pagoWEB',
     gradient: 'from-[#00a651] to-[#00c264]',
     icon: (
       <svg width={30} height={30} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -20,7 +20,7 @@ const accesos: Acceso[] = [
   },
   {
     title: 'Conoce tus Agentes de Pago',
-    href: `${BASE}/agentes-autorizados-de-pago`,
+    href: `${BASE}/servicios/agentes-pago`,
     gradient: 'from-[#0057a8] to-[#0090d4]',
     icon: (
       <svg width={30} height={30} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -30,7 +30,7 @@ const accesos: Acceso[] = [
   },
   {
     title: 'Conoce tu Recibo de Agua',
-    href: `${BASE}/conoce-tu-recibo`,
+    href: `${BASE}/servicios/conoce-tu-recibo`,
     gradient: 'from-[#00b8d4] to-[#22d3ee]',
     icon: (
       <svg width={30} height={30} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -40,7 +40,7 @@ const accesos: Acceso[] = [
   },
   {
     title: 'Conoce tu Tarifa de Agua',
-    href: `${BASE}/tarifas`,
+    href: `${BASE}/servicios/tarifas`,
     gradient: 'from-[#7c3aed] to-[#a855f7]',
     icon: (
       <svg width={30} height={30} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -49,12 +49,12 @@ const accesos: Acceso[] = [
     ),
   },
   {
-    title: 'Visita nuestra Oficina Virtual',
-    href: `${BASE}`,
+    title: 'Conoce las Noticias de EMAQ',
+    href: `${BASE}/imagen/noticias`,
     gradient: 'from-[#f59e0b] to-[#fbbf24]',
     icon: (
       <svg width={30} height={30} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12 11.2 3.045c.44-.44 1.152-.44 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125v18.75A1.125 1.125 0 0 1 18.75 19.5h-16.5A1.125 1.125 0 0 1 1.125 18.375V4.875c0-.621.504-1.125 1.125-1.125H8.25m0 0V3.375C8.25 2.616 8.865 2 9.624 2h1.125c.759 0 1.374.616 1.374 1.375v1.5m-2.873 1.25H9.624m5.376-2.25h1.125c.759 0 1.374.616 1.374 1.375v1.5" />
       </svg>
     ),
   },

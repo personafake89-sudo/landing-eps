@@ -2,8 +2,6 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 
-const BASE = 'https://epsemaq.com.pe';
-
 type NavLeaf = { label: string; href: string };
 type NavSub  = { label: string; children: NavLeaf[] };
 type NavTop  = { label: string; href?: string; children?: (NavLeaf | NavSub)[] };
@@ -16,17 +14,17 @@ const NAV: NavTop[] = [
       {
         label: 'Nosotros',
         children: [
-          { label: 'Visión – Misión',      href: `${BASE}/pagina/vision-mision` },
-          { label: 'Información General',  href: `${BASE}/pagina/informacion-general` },
-          { label: 'Valores Corporativos', href: `${BASE}/pagina/valores-corporativos` },
-          { label: 'Historia',             href: `${BASE}/pagina/historia` },
+          { label: 'Visión – Misión',      href: `/nosotros/vision-mision` },
+          { label: 'Información General',  href: `/nosotros/informacion-general` },
+          { label: 'Valores Corporativos', href: `/nosotros/valores-corporativos` },
+          { label: 'Historia',             href: `/nosotros/historia` },
         ],
       },
       {
         label: 'Organización',
         children: [
-          { label: 'Organigrama',  href: `${BASE}/pagina/organigrama-emaq` },
-          { label: 'Funcionarios', href: `${BASE}/funcionarios` },
+          { label: 'Organigrama',  href: `/nosotros/organigrama` },
+          { label: 'Funcionarios', href: `/nosotros/funcionarios` },
         ],
       },
     ],
@@ -34,29 +32,29 @@ const NAV: NavTop[] = [
   {
     label: 'Gestión',
     children: [
-      { label: 'Transparencia', href: `${BASE}/transparencia` },
-      { label: 'Resoluciones',  href: `${BASE}/resoluciones` },
+      { label: 'Transparencia', href: `/gestion/transparencia` },
+      { label: 'Resoluciones',  href: `/gestion/resoluciones` },
     ],
   },
   {
     label: 'Imagen Institucional',
     children: [
-      { label: 'Comunicados',         href: `${BASE}/noticias?categoria=comunicado` },
-      { label: 'Noticias',            href: `${BASE}/noticias` },
-      { label: 'Educación Sanitaria', href: `${BASE}/pagina/educacion-sanitaria` },
+      { label: 'Comunicados',         href: `/imagen/noticias` },
+      { label: 'Noticias',            href: `/imagen/noticias` },
+      { label: 'Educación Sanitaria', href: `/imagen/educacion-sanitaria` },
     ],
   },
   {
     label: 'Servicios',
     children: [
-      { label: 'Agentes Autorizados de Pago', href: `${BASE}/agentes-autorizados-de-pago` },
+      { label: 'Agentes Autorizados de Pago', href: `/servicios/agentes-pago` },
       { label: 'Atención de Reclamos',        href: '#' },
-      { label: 'Estructura Tarifaria',        href: `${BASE}/tarifas` },
-      { label: 'Conoce tu Recibo',            href: `${BASE}/conoce-tu-recibo` },
+      { label: 'Estructura Tarifaria',        href: `/servicios/tarifas` },
+      { label: 'Conoce tu Recibo',            href: `/servicios/conoce-tu-recibo` },
     ],
   },
-  { label: 'Cortes',   href: `${BASE}/cortes` },
-  { label: 'Contacto', href: `${BASE}/contacto` },
+  { label: 'Cortes',   href: `/servicios/cortes` },
+  { label: 'Contacto', href: `/contacto` },
 ];
 
 const ChevronDown = ({ className }: { className?: string }) => (
@@ -90,7 +88,7 @@ function TopbarSearch({ scrolled }: { scrolled: boolean }) {
     e.preventDefault();
     const q = query.trim();
     if (!q) { inputRef.current?.focus(); return; }
-    window.location.href = `${BASE}/buscar?q=${encodeURIComponent(q)}`;
+    window.location.href = `/imagen/noticias?q=${encodeURIComponent(q)}`;
   }
 
   return (
@@ -369,7 +367,7 @@ export default function Navbar() {
                 e.preventDefault();
                 const q = mobileQuery.trim();
                 if (!q) return;
-                window.location.href = `${BASE}/buscar?q=${encodeURIComponent(q)}`;
+                window.location.href = `/imagen/noticias?q=${encodeURIComponent(q)}`;
               }}
               className="flex items-center gap-2 my-3 rounded-full bg-white/15 ring-1 ring-white/30 px-4 py-2"
             >

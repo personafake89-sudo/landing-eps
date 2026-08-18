@@ -1,6 +1,5 @@
 import Image from "next/image";
-
-const BASE = 'https://epsemaq.com.pe';
+import Link from "next/link";
 
 type Noticia = {
   img: string;
@@ -52,26 +51,22 @@ export default function Noticias() {
             <span className="text-[#00a651] font-semibold text-sm uppercase tracking-wider">Mantente informado</span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-800 mt-1">Noticias</h2>
           </div>
-          <a
-            href={`${BASE}/noticias`}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/imagen/noticias"
             className="inline-flex items-center gap-2 text-[#0057a8] font-semibold hover:gap-3 transition-all"
           >
             Ver todas
             <svg width={18} height={18} fill="none" stroke="currentColor" strokeWidth={2.2} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" />
             </svg>
-          </a>
+          </Link>
         </div>
 
         <div className="grid md:grid-cols-3 gap-7">
           {noticias.map((n) => (
-            <a
+            <Link
               key={n.titulo}
-              href={`${BASE}/noticias`}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/imagen/noticias"
               className="group flex flex-col rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all"
             >
               <div className="relative h-48 overflow-hidden">
@@ -99,7 +94,7 @@ export default function Noticias() {
                   </svg>
                 </span>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </div>

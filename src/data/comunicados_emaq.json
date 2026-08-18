@@ -1,0 +1,52 @@
+{
+ "data": [
+  {
+   "id": 12,
+   "titulo": "revisa los correos",
+   "imagen": "/uploads/1780884715087-pnttug.png",
+   "contenido": null,
+   "linkUrl": null,
+   "linkTexto": "Ver más",
+   "activo": true,
+   "frecuencia": "siempre",
+   "mostrarTitulo": false,
+   "mostrarDescripcion": false,
+   "mostrarEn": "home",
+   "estilo": "modal",
+   "animacion": "pop",
+   "orden": 0,
+   "fechaInicio": null,
+   "fechaFin": null,
+   "autorId": 1,
+   "createdAt": "2026-06-08T02:12:22.241Z",
+   "updatedAt": "2026-06-08T02:13:03.925Z"
+  },
+  {
+   "id": 5,
+   "titulo": "AVISO IMPORTANTE CORTE",
+   "imagen": "/uploads/1785948050591-d2unjp.png",
+   "contenido": null,
+   "linkUrl": null,
+   "linkTexto": "Ver más",
+   "activo": true,
+   "frecuencia": "siempre",
+   "mostrarTitulo": false,
+   "mostrarDescripcion": false,
+   "mostrarEn": "todas",
+   "estilo": "modal",
+   "animacion": "pop",
+   "orden": 0,
+   "fechaInicio": null,
+   "fechaFin": null,
+   "autorId": 1,
+   "createdAt": "2026-05-26T17:46:43.257Z",
+   "updatedAt": "2026-08-05T16:40:51.536Z"
+  }
+ ],
+ "meta": {
+  "total": 2,
+  "page": 1,
+  "pageSize": 10,
+  "totalPages": 1
+ }
+}

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function AgentesSection() {
   return (
@@ -31,10 +32,8 @@ export default function AgentesSection() {
           <p className="text-[#64748b] text-[0.95rem] leading-relaxed max-w-[480px]">
             Realiza el pago de tu recibo de agua en cualquiera de nuestros agentes autorizados ubicados en Quillabamba y La Convención. Rápido, seguro y sin necesidad de internet.
           </p>
-          <a
-            href="https://epsemaq.com.pe/agentes-autorizados-de-pago"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/servicios/agentes-pago"
             className="inline-flex items-center gap-2 px-7 py-3 rounded-full text-white font-semibold text-sm shadow-md hover:-translate-y-0.5 hover:brightness-110 transition-all self-start"
             style={{ background: 'linear-gradient(135deg, #0095eb, #1e73be)' }}
           >
@@ -42,7 +41,7 @@ export default function AgentesSection() {
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
               <path d="m9 18 6-6-6-6" />
             </svg>
-          </a>
+          </Link>
         </div>
 
       </div>

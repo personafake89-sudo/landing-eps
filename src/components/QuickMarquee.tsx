@@ -2,15 +2,13 @@
 
 import { useRef, useState, useEffect } from 'react';
 
-const BASE = 'https://epsemaq.com.pe';
-
 const ITEMS = [
-  { img: '/marquee-oficina.png',   title: 'Visita nuestra Oficina Virtual',           href: `${BASE}/` },
-  { img: '/marquee-fugas.png',     title: 'Reporta fugas de Agua',                    href: `${BASE}/reportar-fuga` },
+  { img: '/marquee-oficina.png',   title: 'Visita nuestra Oficina Virtual',           href: '/' },
+  { img: '/marquee-fugas.png',     title: 'Reporta fugas de Agua',                    href: '/contacto' },
   { img: '/marquee-billetera.png', title: 'Paga tu Recibo con tu Billetera Favorita', href: '/pagoWEB' },
-  { img: '/marquee-agentes.png',   title: 'Conoce tus Agentes de Pago',               href: `${BASE}/agentes-autorizados-de-pago` },
-  { img: '/marquee-recibo.png',    title: 'Conoce tu Recibo de Agua',                 href: `${BASE}/conoce-tu-recibo` },
-  { img: '/marquee-tarifa.png',    title: 'Conoce tu Tarifa de Agua',                 href: `${BASE}/tarifas` },
+  { img: '/marquee-agentes.png',   title: 'Conoce tus Agentes de Pago',               href: '/servicios/agentes-pago' },
+  { img: '/marquee-recibo.png',    title: 'Conoce tu Recibo de Agua',                 href: '/servicios/conoce-tu-recibo' },
+  { img: '/marquee-tarifa.png',    title: 'Conoce tu Tarifa de Agua',                 href: '/servicios/tarifas' },
 ];
 
 const ITEM_W = 180;

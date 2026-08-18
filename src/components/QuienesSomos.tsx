@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const BASE = 'https://epsemaq.com.pe';
+import Link from "next/link";
 
 export default function QuienesSomos() {
   return (
@@ -58,10 +58,8 @@ export default function QuienesSomos() {
               implementando tecnología moderna y prácticas sostenibles que protejan nuestros recursos hídricos
               para las futuras generaciones.
             </p>
-            <a
-              href={`${BASE}/funcionarios`}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/nosotros/funcionarios"
               className="self-start inline-flex items-center gap-2 px-7 py-3 rounded-full text-white font-semibold text-sm shadow-md hover:-translate-y-0.5 hover:brightness-110 active:scale-95 transition-all"
               style={{ background: 'linear-gradient(135deg, #0095eb, #1e73be)' }}
             >
@@ -69,7 +67,7 @@ export default function QuienesSomos() {
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>
-            </a>
+            </Link>
           </div>
 
         </div>

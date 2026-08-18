@@ -65,16 +65,16 @@ export default function Footer() {
           <h4 className="font-bold mb-4 text-white">Enlaces</h4>
           <ul className="space-y-2 text-blue-100 text-sm">
             {[
-              { label: 'Inicio',             href: 'https://epsemaq.com.pe' },
-              { label: 'Servicios',          href: 'https://epsemaq.com.pe/servicios' },
-              { label: 'Tarifas',            href: 'https://epsemaq.com.pe/tarifas' },
-              { label: 'Cortes Programados', href: 'https://epsemaq.com.pe/cortes' },
-              { label: 'Transparencia',      href: 'https://epsemaq.com.pe/transparencia' },
-              { label: 'Noticias',           href: 'https://epsemaq.com.pe/noticias' },
-              { label: 'Contacto',           href: 'https://epsemaq.com.pe/contacto' },
+              { label: 'Inicio',             href: '/' },
+              { label: 'Servicios',          href: '/servicios/agentes-pago' },
+              { label: 'Tarifas',            href: '/servicios/tarifas' },
+              { label: 'Cortes Programados', href: '/servicios/cortes' },
+              { label: 'Transparencia',      href: '/gestion/transparencia' },
+              { label: 'Noticias',           href: '/imagen/noticias' },
+              { label: 'Contacto',           href: '/contacto' },
             ].map(({ label, href }) => (
               <li key={label}>
-                <a href={href} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                <a href={href} className="hover:text-white transition-colors">
                   {label}
                 </a>
               </li>
@@ -99,7 +99,7 @@ export default function Footer() {
             ))}
           </div>
           <div>
-            <a href="https://epsemaq.com.pe" target="_blank" rel="noopener noreferrer">
+            <a href="/contacto">
               <Image
                 src="/libro-reclamaciones.png"
                 alt="Libro de Reclamaciones"

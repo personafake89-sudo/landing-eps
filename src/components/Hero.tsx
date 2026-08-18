@@ -10,7 +10,7 @@ const SLIDES = [
     btnColor: '#0822a6',
     eyebrow: 'Realiza tus pagos de recibos en nuestros',
     title: 'Agente de pago',
-    btn: { label: 'Visitar', href: 'https://epsemaq.com.pe/agentes-autorizados-de-pago' },
+    btn: { label: 'Visitar', href: '/servicios/agentes-pago' },
     img: '/agentes-pago.png',
     imgAlt: 'Agente de pago',
     isPhoto: false,

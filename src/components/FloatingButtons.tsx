@@ -1,6 +1,7 @@
 'use client';
 
-const BASE = 'https://epsemaq.com.pe';
+import Link from "next/link";
+
 const SITIO = 'https://epsemaq.epsagua.com';
 const WHATSAPP = '13858859268';
 
@@ -39,15 +40,13 @@ export default function FloatingButtons() {
 
       {/* Reportar fuga + WhatsApp — abajo derecha */}
       <div className="fixed bottom-5 right-5 z-40 flex flex-col items-end gap-3">
-        <a
-          href={`${BASE}/contacto`}
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          href="/contacto"
           className="flex items-center gap-2 bg-[#ef4444] hover:bg-[#dc2626] text-white font-semibold text-sm pl-4 pr-5 py-3 rounded-full shadow-lg hover:-translate-y-0.5 transition-all"
         >
           <DropIcon />
           Reportar fuga
-        </a>
+        </Link>
 
         <a
           href={`https://wa.me/${WHATSAPP}`}
