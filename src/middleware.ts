@@ -25,7 +25,8 @@ const BLOCKED_IPS = (process.env.BLOCKED_IPS || '').split(',').filter(Boolean);
 
 // Known attack IPs - add more as needed
 const KNOWN_ATTACK_IPS = [
-  '66.234.153.160', // Recent spam attacker
+  '66.234.153.160', // Previous spam attacker
+  '217.113.171.7',  // Active attacker - Aug 27 2026
 ];
 
 function isIPBlocked(ip: string): boolean {

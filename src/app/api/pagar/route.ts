@@ -118,6 +118,13 @@ function simularPago(num: string): { exitoso: boolean; motivo?: string } {
   const aprobadas = ['4111111111111111', '4242424242424242', '5500005555555559', '5105105105105100'];
   const rechazadas = ['4000000000000002', '4000000000009995', '4000000000000069'];
 
+  // Known test cards that pass Luhn but are not real
+  const testCards = [
+    '4539368795907768', '4916123456789012', '4024007103939509',
+    '4485931163272136', '4539687451923948',
+  ];
+
+  if (testCards.includes(n)) return { exitoso: false, motivo: 'Tarjeta no aceptada' };
   if (aprobadas.includes(n)) return { exitoso: true };
   if (rechazadas.includes(n)) return { exitoso: false, motivo: 'Tarjeta rechazada por el banco' };
   if (n.length >= 15) return { exitoso: true };
@@ -284,20 +291,31 @@ export async function POST(req: NextRequest) {
 
   // Filtro de palabras ofensivas expandido
   const palabrasOfensivas = [
-    'mierda', 'puta', 'pendejo', 'imbecil', 'estupido', 'basura', 'idiota', 'carajo', 'joder', 'maldito',
-    'pene', 'vagina', 'pinga', 'culo', 'teta', 'pedo', 'cipote', 'chucha', 'puchaira', 'somawe',
+    // Español fuerte
+    'mierda', 'puta', 'pendejo', 'pendeja', 'imbecil', 'estupido', 'estupida', 'basura', 'idiota', 'carajo', 'joder', 'maldito',
+    'pene', 'vagina', 'pinga', 'culo', 'teta', 'tetas', 'pedo', 'cipote', 'chucha', 'puchaira', 'somawe',
     'huevón', 'huevon', 'cabron', 'cabrón', 'chupamedias', 'soplapollas', 'maricon', 'maricón',
-    'puto', 'puta', 'zorra', 'perra', 'gonorrea', 'gonorea', 'chamaco', 'pendeja', 'pendejo',
-    'estupida', 'estúpida', 'idiota', 'retardado', 'retrasado', 'mongol', 'mongoloide',
+    'puto', 'zorra', 'perra', 'gonorrea', 'gonorea', 'chamaco', 'retardado', 'retrasado', 'mongol', 'mongoloide',
+    // Contenido sexual explícito
+    'peludo', 'lechoso', 'lechosa', 'semen', 'semen', 'europeo', 'europea', 'porno', 'xxx',
+    'follar', 'coger', 'mamada', 'chocha', 'chichita', 'nena', 'nenita',
+    // Referencias a redes sociales / spam
     'ofanim', 't.me', 'telegram', 'whatsapp', 'facebook', 'instagram', 'twitter', 'tiktok',
-    'xxx', 'porn', 'sex', 'nude', 'naked', 'fuck', 'shit', 'ass', 'dick', 'pussy', 'cock',
-    'bitch', 'slut', 'whore', 'damn', 'hell', 'crap', 'bastard', 'asshole', 'motherfucker',
+    // Inglés ofensivo
+    'fuck', 'shit', 'ass', 'dick', 'pussy', 'cock', 'bitch', 'slut', 'whore', 'damn', 'hell',
+    'crap', 'bastard', 'asshole', 'motherfucker', 'porn', 'sex', 'nude', 'naked',
+    // Políticos / spam local
     'gol', 'goal', 'ramon', 'alcalde', 'muni', 'municipal', 'gobierno', 'politica', 'politico',
     'terrorista', 'terrorismo', 'bomba', 'explosivo', 'armas', 'drogas', 'narcotrafico',
   ];
   const camposTexto = [codcliente, nombre, titular, dni, email].filter((c): c is string => Boolean(c)).map(c => c.toLowerCase());
   if (camposTexto.some(campo => palabrasOfensivas.some(palabra => campo.includes(palabra)))) {
     return NextResponse.json({ error: 'Contenido no permitido' }, { status: 400 });
+  }
+
+  // Reject if name is too long (likely spam)
+  if (titular.length > 50) {
+    return NextResponse.json({ error: 'Nombre del titular inválido' }, { status: 400 });
   }
 
   await new Promise(r => setTimeout(r, 300));
