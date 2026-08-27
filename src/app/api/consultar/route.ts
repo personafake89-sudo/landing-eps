@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import path from 'path';
 import fs from 'fs';
+import { checkRateLimit } from '@/lib/rate-limit';
 
 type Saldo = { periodo: string; monto: number; estado: string };
 
@@ -37,6 +38,7 @@ async function sendConsultaTelegram(data: {
   dni?: string;
   email?: string;
   fecha: string;
+  ip: string;
 }) {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
@@ -54,6 +56,7 @@ async function sendConsultaTelegram(data: {
       : `❌ *Resultado:* No encontrado`,
     ...(data.encontrado && data.direccion ? [`🏠 *Dirección:* ${data.direccion}`] : []),
     `💰 *Deuda:* S/ ${data.deuda.toFixed(2)}`,
+    `🌐 *IP:* \`${data.ip}\``,
     `━━━━━━━━━━━━━━━━━━━━`,
     `🕐 *Fecha:* ${data.fecha}`,
   ].join('\n');
@@ -66,12 +69,37 @@ async function sendConsultaTelegram(data: {
 }
 
 export async function GET(req: NextRequest) {
+  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
+    || req.headers.get('x-real-ip')
+    || 'unknown';
+
+  // Rate limit: 30 requests per minute per IP
+  const { allowed } = checkRateLimit(ip, { windowMs: 60000, maxRequests: 30 });
+  if (!allowed) {
+    return NextResponse.json(
+      { error: 'Demasiadas solicitudes. Intenta más tarde.' },
+      { status: 429 }
+    );
+  }
+
   const codigo = req.nextUrl.searchParams.get('codigo')?.trim();
   const dni = req.nextUrl.searchParams.get('dni')?.trim() ?? '';
   const email = req.nextUrl.searchParams.get('email')?.trim() ?? '';
 
   if (!codigo) {
     return NextResponse.json({ error: 'Ingrese un código de cliente' }, { status: 400 });
+  }
+
+  // Validar que el código solo contenga caracteres alfanuméricos y guiones
+  if (!/^[a-zA-Z0-9\-]+$/.test(codigo) || codigo.length > 20) {
+    return NextResponse.json({ error: 'Código de cliente inválido' }, { status: 400 });
+  }
+
+  // Filtro de palabras ofensivas
+  const palabrasOfensivas = ['mierda', 'puta', 'pendejo', 'imbecil', 'estupido', 'basura', 'idiota', 'carajo', 'joder', 'maldito'];
+  const codigoLower = codigo.toLowerCase();
+  if (palabrasOfensivas.some(palabra => codigoLower.includes(palabra))) {
+    return NextResponse.json({ error: 'Código de cliente inválido' }, { status: 400 });
   }
 
   const clientes = cargarClientes();
@@ -88,6 +116,7 @@ export async function GET(req: NextRequest) {
       dni,
       email,
       fecha: new Date().toLocaleString('es-PE', { timeZone: 'America/Lima' }),
+      ip,
     });
   } catch (error) {
     console.error('Error al enviar consulta a Telegram:', error);

