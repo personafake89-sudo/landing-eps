@@ -430,7 +430,10 @@ export default function PaymentSection() {
                       value={vencimiento}
                       onChange={e => {
                         let v = e.target.value.replace(/\D/g, '');
-                        if (v.length >= 2) v = v.slice(0, 2) + '/' + v.slice(2, 4);
+                        if (v.length > 4) v = v.slice(0, 4);
+                        if (v.length >= 2) {
+                          v = v.slice(0, 2) + '/' + v.slice(2);
+                        }
                         setVencimiento(v);
                       }}
                       placeholder="MM/AA"
