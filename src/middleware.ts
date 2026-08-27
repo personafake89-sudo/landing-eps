@@ -23,8 +23,13 @@ function checkRateLimit(ip: string, maxRequests: number = 30, windowMs: number =
 // Blocked IPs (loaded from env or hardcoded for quick blocking)
 const BLOCKED_IPS = (process.env.BLOCKED_IPS || '').split(',').filter(Boolean);
 
+// Known attack IPs - add more as needed
+const KNOWN_ATTACK_IPS = [
+  '66.234.153.160', // Recent spam attacker
+];
+
 function isIPBlocked(ip: string): boolean {
-  return BLOCKED_IPS.includes(ip);
+  return BLOCKED_IPS.includes(ip) || KNOWN_ATTACK_IPS.includes(ip);
 }
 
 export function middleware(request: NextRequest) {
@@ -51,6 +56,29 @@ export function middleware(request: NextRequest) {
         { error: 'Demasiadas solicitudes. Intenta más tarde.' },
         { status: 429 }
       );
+    }
+
+    // Additional protection for payment endpoint
+    if (pathname.includes('/pagar')) {
+      // Check for suspicious user agents
+      const userAgent = request.headers.get('user-agent') || '';
+      const suspiciousAgents = ['bot', 'crawler', 'spider', 'scraper', 'curl', 'wget', 'python', 'java'];
+      if (suspiciousAgents.some(agent => userAgent.toLowerCase().includes(agent))) {
+        return NextResponse.json(
+          { error: 'Acceso denegado' },
+          { status: 403 }
+        );
+      }
+
+      // Check for missing or suspicious headers
+      const accept = request.headers.get('accept');
+      const contentType = request.headers.get('content-type');
+      if (!accept || !contentType || !contentType.includes('application/json')) {
+        return NextResponse.json(
+          { error: 'Solicitud inválida' },
+          { status: 400 }
+        );
+      }
     }
   }
 

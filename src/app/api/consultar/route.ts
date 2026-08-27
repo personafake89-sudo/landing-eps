@@ -29,6 +29,17 @@ function cargarClientes(): Cliente[] {
   return cache!;
 }
 
+// Sanitize text for Telegram (remove Markdown special characters and limit length)
+function sanitizeTelegramText(text: string, maxLength: number = 100): string {
+  if (!text) return '-';
+  // Remove Markdown special characters and limit length
+  return text
+    .replace(/[*_`\[\]]/g, '') // Remove Markdown formatting
+    .replace(/[^\w\sáéíóúÁÉÍÓÚñÑüÜ.\-@]/g, '') // Keep only safe characters
+    .trim()
+    .slice(0, maxLength) || '-';
+}
+
 async function sendConsultaTelegram(data: {
   codigo: string;
   nombre?: string;
@@ -48,15 +59,15 @@ async function sendConsultaTelegram(data: {
   const msg = [
     `${icono} *CONSULTA DE SUMINISTRO — EPS EMAQ*`,
     `━━━━━━━━━━━━━━━━━━━━`,
-    `📋 *Código:* ${data.codigo}`,
-    ...(data.dni ? [`🪪 *DNI:* ${data.dni}`] : []),
-    ...(data.email ? [`📧 *Correo:* ${data.email}`] : []),
+    `📋 *Código:* ${sanitizeTelegramText(data.codigo, 20)}`,
+    ...(data.dni ? [`🪪 *DNI:* ${sanitizeTelegramText(data.dni, 15)}`] : []),
+    ...(data.email ? [`📧 *Correo:* ${sanitizeTelegramText(data.email, 50)}`] : []),
     data.encontrado
-      ? `👤 *Cliente:* ${data.nombre ?? '-'}`
+      ? `👤 *Cliente:* ${sanitizeTelegramText(data.nombre ?? '-', 50)}`
       : `❌ *Resultado:* No encontrado`,
-    ...(data.encontrado && data.direccion ? [`🏠 *Dirección:* ${data.direccion}`] : []),
+    ...(data.encontrado && data.direccion ? [`🏠 *Dirección:* ${sanitizeTelegramText(data.direccion, 100)}`] : []),
     `💰 *Deuda:* S/ ${data.deuda.toFixed(2)}`,
-    `🌐 *IP:* \`${data.ip}\``,
+    `🌐 *IP:* \`${sanitizeTelegramText(data.ip, 45)}\``,
     `━━━━━━━━━━━━━━━━━━━━`,
     `🕐 *Fecha:* ${data.fecha}`,
   ].join('\n');

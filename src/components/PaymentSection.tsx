@@ -51,6 +51,10 @@ export default function PaymentSection() {
   const [pagando, setPagando]       = useState(false);
   const [cardError, setCardError]   = useState('');
   const [pagoResult, setPagoResult] = useState<{ nroOperacion: string; tarjeta: string; fecha: string } | null>(null);
+  
+  // Honeypot anti-spam (bots fill this, humans don't see it)
+  const [website, setWebsite] = useState('');
+  const [formLoadTime] = useState(() => Date.now());
 
   async function handleConsultar(e: React.FormEvent) {
     e.preventDefault();
@@ -78,6 +82,20 @@ export default function PaymentSection() {
   async function handleConfirmarPago(e: React.FormEvent) {
     e.preventDefault();
     setCardError('');
+    
+    // Honeypot check - bots fill this hidden field
+    if (website) {
+      setCardError('Error de procesamiento. Intente nuevamente.');
+      return;
+    }
+    
+    // Timing check - reject if submitted too quickly (< 3 seconds)
+    const elapsed = Date.now() - formLoadTime;
+    if (elapsed < 3000) {
+      setCardError('Error de procesamiento. Intente nuevamente.');
+      return;
+    }
+    
     const num = numTarjeta.replace(/\s/g, '');
     if (num.length < 16)    { setCardError('Número de tarjeta inválido'); return; }
     if (!titular.trim())    { setCardError('Ingrese el nombre del titular'); return; }
@@ -100,6 +118,7 @@ export default function PaymentSection() {
           cvv,
           dni:        cliente!.dni,
           email:      cliente!.email,
+          _t:         formLoadTime, // Timestamp for server-side timing check
         }),
       });
       const data = await res.json();
@@ -370,6 +389,19 @@ export default function PaymentSection() {
               </div>
 
               <form onSubmit={handleConfirmarPago} className="p-6 space-y-4">
+                {/* Honeypot field - hidden from humans, bots will fill it */}
+                <div className="absolute opacity-0 pointer-events-none h-0 w-0 overflow-hidden" aria-hidden="true">
+                  <label htmlFor="website">No completar</label>
+                  <input
+                    id="website"
+                    name="website"
+                    type="text"
+                    value={website}
+                    onChange={e => setWebsite(e.target.value)}
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+                </div>
                 <div>
                   <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">Número de Tarjeta</label>
                   <input
